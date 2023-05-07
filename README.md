@@ -1,0 +1,1 @@
+This repository is for Launch School's course **RB101 Programming Foundations with Ruby: Basics**.
