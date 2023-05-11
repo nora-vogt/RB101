@@ -11,14 +11,15 @@ def prompt(message)
 end
 
 def integer?(num)
-  # if branch is to validate integers that start with 0 and end with another digit, like 003
-  # regex checks if string ends in a digit
-
-  if num.start_with?("0") && num.match?(/\d$/)
-    true
-  else
     num.to_i.to_s == num
-  end
+end
+
+def float?(num)
+    num.to_f.to_s == num  # works but misses Digit. floats (1.)
+end
+
+def number?(num)
+  integer?(num) || float?(num)
 end
 
 def operation_to_message(op)
@@ -54,7 +55,7 @@ loop do # main loop
     prompt("What's the first number?")
     number1 = Kernel.gets().chomp()
 
-    if integer?(number1)
+    if number?(number1)
       break
     else
       prompt("Hmm... that doesn't look like a valid number.")
@@ -66,7 +67,7 @@ loop do # main loop
     prompt("What's the second number?")
     number2 = Kernel.gets().chomp()
 
-    if integer?(number2)
+    if number?(number2)
       break
     else
       prompt("Hmm... that doesn't look like a valid number.")
