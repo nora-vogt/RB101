@@ -105,7 +105,7 @@ loop do # main loop
            when '3'
              number1.to_i() * number2.to_i()
            when '4'
-             number1.to_f() / number2.to_f()
+             number1.to_i() / number2.to_i()
            end
 
   prompt("The result is #{result}")
