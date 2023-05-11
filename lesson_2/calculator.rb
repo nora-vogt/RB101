@@ -105,7 +105,11 @@ loop do # main loop
            when '3'
              number1.to_i() * number2.to_i()
            when '4'
-             number1.to_i() / number2.to_i()
+            if number2.to_i == 0
+              0
+            else
+              number1.to_i() / number2.to_i()
+            end
            end
 
   prompt("The result is #{result}")
