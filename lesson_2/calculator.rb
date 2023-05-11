@@ -1,3 +1,4 @@
+require "pry"
 # ask the user for two numbers
 # ask the user for an operation to perform
 # perform the operation on the two numbers
@@ -9,8 +10,15 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def valid_number?(num)
-  num.to_i() != 0
+def integer?(num)
+  # if branch is to validate integers that start with 0 and end with another digit, like 003
+  # regex checks if string ends in a digit
+
+  if num.start_with?("0") && num.match?(/\d$/)
+    true
+  else
+    num.to_i.to_s == num
+  end
 end
 
 def operation_to_message(op)
