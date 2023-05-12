@@ -1,13 +1,15 @@
-require "pry"
-# ask the user for two numbers
-# ask the user for an operation to perform
-# perform the operation on the two numbers
-# output the result
+require 'yaml'
+require 'pry'
 
-# answer = Kernel.gets()
-# Kernel.puts(answer)
-def prompt(message)
-  Kernel.puts("=> #{message}")
+# using a constant - Prompts are not expected to change
+PROMPTS = YAML.load(File.read('calculator_config.yml'))
+
+def msg(key) # testing for string interpolation
+  PROMPTS[key]
+end
+
+def prompt(key)
+  Kernel.puts("#{PROMPTS[key]}")
 end
 
 def integer?(num)
@@ -36,7 +38,8 @@ def operation_to_message(op)
   message
 end
 
-prompt("Welcome to Calculator! Enter your name:")
+prompt(:welcome)
+#prompt("Welcome to Calculator! Enter your name:")
 name = ''
 loop do
   name = Kernel.gets().chomp()
@@ -47,42 +50,43 @@ loop do
     break
   end
 end
-
-prompt("Hi #{name}!")
+binding.pry
+format(msg(:greeting), name: name) # Need to figure out String Interpolation with YAML file!
+#prompt("Hi #{name}!")
 
 loop do # main loop
   number1 = ''
   loop do
-    prompt("What's the first number?")
+    prompt(:first_num)
     number1 = Kernel.gets().chomp()
 
     if number?(number1)
       break
     else
-      prompt("Hmm... that doesn't look like a valid number.")
+      prompt(:invalid_num)
     end
   end
 
   number2 = ''
   loop do
-    prompt("What's the second number?")
+    prompt(:second_num)
     number2 = Kernel.gets().chomp()
 
     if number?(number2)
       break
     else
-      prompt("Hmm... that doesn't look like a valid number.")
+      prompt(:invalid_num)
     end
   end
 
-  operator_prompt = <<-MSG
-    What operation would you like to perform?
-    1) add
-    2) subtract
-    3) multiply
-    4) divide
-  MSG
-  prompt(operator_prompt)
+  # operator_prompt = <<-MSG
+  #   What operation would you like to perform?
+  #   1) add
+  #   2) subtract
+  #   3) multiply
+  #   4) divide
+  # MSG
+  prompt(:choose_operation)
 
   operator = ''
   loop do
@@ -91,7 +95,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt("Must choose 1, 2, 3, or 4")
+      prompt(:invalid_operator)
     end
   end
 
