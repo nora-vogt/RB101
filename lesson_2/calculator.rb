@@ -1,10 +1,10 @@
 require 'yaml'
 require 'pry'
 
-# using a constant - Prompts are not expected to change
+# using a constant - prompts are not expected to change
 PROMPTS = YAML.load(File.read('calculator_config.yml'))
 
-def return_msg(key) # return the value of messages from YAML file to use with Kernel#format + string interpolation
+def return_msg(key) # return the value of messages from YAML
   PROMPTS[key]
 end
 
@@ -45,12 +45,13 @@ loop do
   user_name = Kernel.gets().chomp()
 
   if user_name.empty?()
-    print_msg("Make sure to use a valid name.")
+    print_msg(:need_valid_name)
   else
     break
   end
 end
 
+# format(return_msg(key_from_yaml), var_name_from_yaml: local_var)
 puts format(return_msg(:greeting), name: user_name)
 
 loop do # main loop
