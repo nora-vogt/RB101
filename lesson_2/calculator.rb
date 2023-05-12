@@ -4,11 +4,11 @@ require 'pry'
 # using a constant - Prompts are not expected to change
 PROMPTS = YAML.load(File.read('calculator_config.yml'))
 
-def return_msg(key) # return the value for Kernel#format + interpolation
+def return_msg(key) # return the value of messages from YAML file to use with Kernel#format + string interpolation
   PROMPTS[key]
 end
 
-def prompt(key) # print the output for regular messages -** CHANGE THIS NAME AFTER TO LIKE PRINT_MSG?? 
+def print_msg(key) # print messages from YAML file
   Kernel.puts("#{PROMPTS[key]}")
 end
 
@@ -27,65 +27,58 @@ end
 def operation_to_message(op)
   message = case op
             when '1'
-              'Adding'
+              return_msg(:adding)
             when '2'
-              'Subtracting'
+              return_msg(:subtracting)
             when '3'
-              'Multiplying'
+              return_msg(:multiplying)
             when '4'
-              'Dividing'
+              return_msg(:dividing)
             end
   message
 end
 
-prompt(:welcome)
-#prompt("Welcome to Calculator! Enter your name:")
+print_msg(:welcome)
+
 user_name = ''
 loop do
   user_name = Kernel.gets().chomp()
 
   if user_name.empty?()
-    prompt("Make sure to use a valid name.")
+    print_msg("Make sure to use a valid name.")
   else
     break
   end
 end
 
-format(return_msg(:greeting), name: user_name)
+puts format(return_msg(:greeting), name: user_name)
 
 loop do # main loop
   number1 = ''
   loop do
-    prompt(:first_num)
+    print_msg(:first_num)
     number1 = Kernel.gets().chomp()
 
     if number?(number1)
       break
     else
-      prompt(:invalid_num)
+      print_msg(:invalid_num)
     end
   end
 
   number2 = ''
   loop do
-    prompt(:second_num)
+    print_msg(:second_num)
     number2 = Kernel.gets().chomp()
 
     if number?(number2)
       break
     else
-      prompt(:invalid_num)
+      print_msg(:invalid_num)
     end
   end
 
-  # operator_prompt = <<-MSG
-  #   What operation would you like to perform?
-  #   1) add
-  #   2) subtract
-  #   3) multiply
-  #   4) divide
-  # MSG
-  prompt(:choose_operation)
+  print_msg(:choose_operation)
 
   operator = ''
   loop do
@@ -94,11 +87,11 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt(:invalid_operator)
+      print_msg(:invalid_operator)
     end
   end
 
-  prompt("#{operation_to_message(operator)} the two numbers...")
+  puts format(return_msg(:display_operation), op_name_as_verb: operation_to_message(operator))
 
   result = case operator
            when '1'
@@ -115,11 +108,11 @@ loop do # main loop
             end
            end
 
-  prompt("The result is #{result}")
+  puts format(return_msg(:result), answer: result)
 
-  prompt("Do you want to perform another calculation? (Y to calculate again)")
+  print_msg(:again?)
   answer = Kernel.gets().chomp()
-  break unless answer.downcase.start_with?('y')
+  break unless answer.downcase == 'y'
 end
 
-prompt("Thank you for using the calculator. Goodbye!")
+print_msg(:goodbye)
