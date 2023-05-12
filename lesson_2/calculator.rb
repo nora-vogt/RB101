@@ -4,11 +4,11 @@ require 'pry'
 # using a constant - Prompts are not expected to change
 PROMPTS = YAML.load(File.read('calculator_config.yml'))
 
-def msg(key) # testing for string interpolation
+def return_msg(key) # return the value for Kernel#format + interpolation
   PROMPTS[key]
 end
 
-def prompt(key)
+def prompt(key) # print the output for regular messages -** CHANGE THIS NAME AFTER TO LIKE PRINT_MSG?? 
   Kernel.puts("#{PROMPTS[key]}")
 end
 
@@ -40,19 +40,18 @@ end
 
 prompt(:welcome)
 #prompt("Welcome to Calculator! Enter your name:")
-name = ''
+user_name = ''
 loop do
-  name = Kernel.gets().chomp()
+  user_name = Kernel.gets().chomp()
 
-  if name.empty?()
+  if user_name.empty?()
     prompt("Make sure to use a valid name.")
   else
     break
   end
 end
-binding.pry
-format(msg(:greeting), name: name) # Need to figure out String Interpolation with YAML file!
-#prompt("Hi #{name}!")
+
+format(return_msg(:greeting), name: user_name)
 
 loop do # main loop
   number1 = ''
