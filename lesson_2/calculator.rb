@@ -2,14 +2,14 @@ require 'yaml'
 require 'pry'
 
 # using a constant - prompts are not expected to change
-PROMPTS = YAML.load(File.read('calculator_config.yml'))
+MESSAGES = YAML.load(File.read('calculator_messages.yml'))
 
 def return_msg(key) # return the value of messages from YAML
-  PROMPTS[key]
+  MESSAGES[key]
 end
 
 def print_msg(key) # print messages from YAML file
-  Kernel.puts("#{PROMPTS[key]}")
+  Kernel.puts("#{MESSAGES[key]}")
 end
 
 def integer?(num)
