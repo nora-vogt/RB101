@@ -2,7 +2,7 @@ require 'yaml'
 require 'pry'
 
 # using a constant - prompts are not expected to change
-MESSAGES = YAML.load(File.read('calculator_messages.yml'))
+MESSAGES = YAML.load_file('calculator_messages.yml')
 
 def return_msg(key) # return the value of messages from YAML
   MESSAGES[key]
