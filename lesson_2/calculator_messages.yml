@@ -26,9 +26,9 @@ es:
   :welcome: "¡Bienvenido a Calculadora! Escriba su nombre:"
   :need_valid_name: "Utilice un nombre válido."
   :greeting: "¡Hola, %{name}!"
-  :first_num: "¿Cuál es el número primero?"
+  :first_num: "¿Cuál es el primer número?"
   :invalid_num: "Hmm... eso no parece un número válido."
-  :second_num: "¿Cuál es el número segundo?"
+  :second_num: "¿Cuál es el segundo número?"
   :choose_operation: | 
     ¿Qué operación le gustaría realizar?
       1) sumar
