@@ -8,6 +8,10 @@ require 'pry'
 # using a constant - prompts are not expected to change
 MESSAGES = YAML.load_file('calculator_messages.yml')
 
+def every_lang_message(key)
+  MESSAGES[key].each {|str| puts "=> #{str}"}
+end
+
 def message(key, language='en')
   MESSAGES[language][key]
 end
@@ -43,12 +47,9 @@ def operation_to_message(op, language)
   message
 end
 
-print_msg(:welcome)
-#print_msg(:welcome, 'es')
+every_lang_message(:welcome)
 
-
-print_msg(:choose_lang)
-#print_msg(:choose_lang, 'es')
+puts MESSAGES[:choose_lang]
 
 language = 'en'
 loop do
@@ -58,7 +59,7 @@ loop do
     language = 'es' if lang_choice == '2'
     break
   else
-    print_msg(:invalid_lang, language)
+    every_lang_message(:invalid_lang)
   end
 end
 

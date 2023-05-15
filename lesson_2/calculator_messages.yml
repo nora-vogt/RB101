@@ -1,12 +1,15 @@
 # Messages for Calculator Program
 ---
+:welcome:
+  - "Welcome to Calculator! Choose your language:"
+  - "¡Bienvenido a Calculadora! Elige un idioma:"
+:choose_lang: |
+      1) English
+      2) Español
+:invalid_lang:
+  - "Must choose 1 or 2"
+  - "Debe elegir 1 o 2"
 en:
-  :welcome: "Welcome to Calculator!"
-  :choose_lang: |
-    Choose a language:
-    1) English
-    2) Español
-  :invalid_lang: "Must choose 1 or 2"
   :enter_name: "Enter your name:"
   :need_valid_name: "Make sure to use a valid name."
   :greeting: "Hello, %{name}!"
@@ -29,8 +32,6 @@ en:
   :again?: "Do you want to perform another calculation? (Y to calculate again)"
   :goodbye: "Thank you for using the calculator. Goodbye!"
 es:
-  :welcome: "¡Bienvenido a Calculadora!"
-  :choose_lang: "Elige un idioma:"
   :enter_name: "Escriba su nombre:"
   :need_valid_name: "Utilice un nombre válido."
   :greeting: "¡Hola, %{name}!"
