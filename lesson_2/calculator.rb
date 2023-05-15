@@ -1,16 +1,22 @@
 require 'yaml'
 require 'pry'
 
+# TO-DO:
+# Fix language implementation; currently it yells at you when running
+# program in CLI because of reassigning a constant
+
 # using a constant - prompts are not expected to change
 MESSAGES = YAML.load_file('calculator_messages.yml')
+LANGUAGE = 'en'
 
 def return_msg(key) # return the value of message from YAML file
-  MESSAGES[key]
+  MESSAGES[LANGUAGE][key]
 end
 
 def print_msg(key) # print messages from YAML file
-  Kernel.puts("#{MESSAGES[key]}")
+  Kernel.puts("#{return_msg(key)}")
 end
+
 
 def integer?(num)
     num.to_i.to_s == num
@@ -40,6 +46,21 @@ end
 
 print_msg(:welcome)
 
+print_msg(:choose_lang)
+
+language = ''
+loop do
+  language = Kernel.gets().chomp()
+
+  if %[1 2].include?(language)
+    LANGUAGE = 'es' if language == '2'
+    break
+  else
+    print_msg(:invalid_lang)
+  end
+end
+
+print_msg(:enter_name)
 user_name = ''
 loop do
   user_name = Kernel.gets().chomp()
