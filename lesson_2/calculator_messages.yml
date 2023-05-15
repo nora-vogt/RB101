@@ -1,23 +1,46 @@
 # Messages for Calculator Program
 ---
-:welcome: "Welcome to Calculator! Enter your name:"
-:need_valid_name: "Make sure to use a valid name."
-:greeting: "Hello, %{name}!"
-:first_num: "What's the first number?"
-:invalid_num: "Hmm... that doesn't look like a valid number."
-:second_num: "What's the second number?"
-:choose_operation: | 
-  What operation would you like to perform?
-    1) add
-    2) subtract
-    3) multiply
-    4) divide
-:invalid_operator: "Must choose 1, 2, 3, or 4"
-:display_operation: "%{op_name_as_verb} the two numbers..."
-:adding: "Adding"
-:subtracting: "Subtracting"
-:multiplying: "Multiplying"
-:dividing: "Dividing"
-:result: "The result is %{answer}"
-:again?: "Do you want to perform another calculation? (Y to calculate again)"
-:goodbye: "Thank you for using the calculator. Goodbye!"
+en:
+  :welcome: "Welcome to Calculator! Enter your name:"
+  :need_valid_name: "Make sure to use a valid name."
+  :greeting: "Hello, %{name}!"
+  :first_num: "What's the first number?"
+  :invalid_num: "Hmm... that doesn't look like a valid number."
+  :second_num: "What's the second number?"
+  :choose_operation: | 
+    What operation would you like to perform?
+      1) add
+      2) subtract
+      3) multiply
+      4) divide
+  :invalid_operator: "Must choose 1, 2, 3, or 4"
+  :display_operation: "%{op_name_as_verb} the two numbers..."
+  :adding: "Adding"
+  :subtracting: "Subtracting"
+  :multiplying: "Multiplying"
+  :dividing: "Dividing"
+  :result: "The result is %{answer}"
+  :again?: "Do you want to perform another calculation? (Y to calculate again)"
+  :goodbye: "Thank you for using the calculator. Goodbye!"
+es:
+  :welcome: "¡Bienvenido a Calculadora! Escriba su nombre:"
+  :need_valid_name: "Utilice un nombre válido."
+  :greeting: "¡Hola, %{name}!"
+  :first_num: "¿Cuál es el número primero?"
+  :invalid_num: "Hmm... eso no parece un número válido."
+  :second_num: "¿Cuál es el número segundo?"
+  :choose_operation: | 
+    ¿Qué operación le gustaría realizar?
+      1) sumar
+      2) restar
+      3) multiplicar
+      4) dividir
+  :invalid_operator: "Debe elegir 1, 2, 3 o 4"
+  :display_operation: "%{op_name_as_verb} los dos numeros..."
+  :adding: "Sumando"
+  :subtracting: "Restando"
+  :multiplying: "Multiplicando"
+  :dividing: "Dividiendo"
+  :result: "El resultado es %{answer}"
+  :again?: "¿Desea realizar otro cálculo? (S para calcular de nuevo)"
+  :goodbye: "Gracias por usar la Calculadora. ¡Adiós!"
