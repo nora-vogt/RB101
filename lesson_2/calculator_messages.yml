@@ -30,6 +30,7 @@ en:
   :goodbye: "Thank you for using the calculator. Goodbye!"
 es:
   :welcome: "¡Bienvenido a Calculadora!"
+  :choose_lang: "Elige un idioma:"
   :enter_name: "Escriba su nombre:"
   :need_valid_name: "Utilice un nombre válido."
   :greeting: "¡Hola, %{name}!"
