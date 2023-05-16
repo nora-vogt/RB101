@@ -3,14 +3,12 @@ require 'pry'
 # Annual Percentage Rate (APR)
 # loan duration
 
-
 # need to calculate:
   # monthly interest rate
   # loan duration in months
   # monthly payment
 
 # PSEUDOCODE: 
-
 # Display welcome message
 # Ask user for loan amount - "loan_amount"
   # need to validate & format loan amount
@@ -21,16 +19,16 @@ require 'pry'
   # remove any non-numeric characters
 # Ask user: is your loan term in months or years?
   # if months, ask user for loan duration in months - "duration_in_months"
+    # validate number
   # if years, ask user for loan duration in years - "duration_in_years"
-
-# TO CALCULATE:
-# monthly_int_rate = annual_percentage_rate / 12?? **how do to this math?
-
-
-# Ask user for loan duration in months  - "duration"
-  # validate that duration is a number
+    # validate number
 # Ask user for monthly payment amount - "monthly_payment"
   # validate that payment amount is a number
+
+# convert APR to monthly interest rate (monthly rate = APR / (12 * 100)) => expresses interest rate as number. ex: APR = 6.0% -> monthly is 0.5% -> 0.005 decimal conversion
+
+# calculate monthly loan payment
+# display monthly payment amount
 
   # formula for calculation
  # m = p * (j / (1 - (1 + j)**(-n)))
