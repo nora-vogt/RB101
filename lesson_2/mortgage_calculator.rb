@@ -61,8 +61,13 @@ loop do
   puts ">> Invalid number."
 end
 
-puts ">> Please enter your Annual Percentage Rate (APR):"
-annual_percentage_rate = gets.chomp
+annual_percentage_rate = ''
+loop do
+  puts ">> Please enter your Annual Percentage Rate (APR):"
+  annual_percentage_rate = gets.chomp
+
+   break if valid_number?(annual_percentage_rate)
+end
 
 puts ">> Is your loan term in months or years? (Enter 'months' or 'years'):"
 term = gets.chomp.downcase
