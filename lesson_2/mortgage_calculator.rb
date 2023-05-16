@@ -89,7 +89,7 @@ loop do
   end
 
   if duration_in_months.empty?
-    duration_in_months = (duration_in_years.to_i * 12).to_s
+    duration_in_months = (duration_in_years.to_i * 12).to_s   # keeps loan term as a string
   end
 
   break if valid_number?(duration_in_years) || valid_number?(duration_in_months)
@@ -98,12 +98,10 @@ loop do
   # later - have this be two loops with separate, specific error messages to each term
 end
 
-# need to check: if entering in years, need to convert duration to months
-# if entering in months, no conversion necessary
-
+puts ">> Calculating your monthly payment..."
 
 monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
 monthly_payment = loan_amount.to_i * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-duration_in_months.to_i)))
 
-puts "Your monthly payment is #{monthly_payment}"   # need to: format to round at two decimal points
+puts "Your monthly payment is $#{format('%.2f', monthly_payment)}"   # Kernel#format('%.2f', number) - rounds float to two decimal places; returns rounded number as a String
