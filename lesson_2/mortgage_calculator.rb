@@ -36,8 +36,9 @@ require 'pry'
  # m = p * (j / (1 - (1 + j)**(-n)))
  # monthly_payment = loan_amount * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-duration_in_months)))
 
-# def valid_int?(string)
-# end
+def valid_int?(string)
+  string.to_i.to_s == string
+end
 
 # def valid_float?(string)
 # end
@@ -48,9 +49,16 @@ require 'pry'
 
 puts ">> Welcome to the Loan Calculator!"
 
-puts ">> Please enter your loan amount"
-print "$" 
-loan_amount = gets.chomp
+loan_amount = ''
+loop do
+  puts ">> Please enter your loan amount:"
+  print "$" 
+  loan_amount = gets.chomp
+
+  break if valid_int?(loan_amount)
+
+  puts ">> Invalid number."
+end
 
 puts ">> Please enter your Annual Percentage Rate (APR):"
 annual_percentage_rate = gets.chomp
