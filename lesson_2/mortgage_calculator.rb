@@ -40,12 +40,13 @@ def valid_int?(string)
   string.to_i.to_s == string
 end
 
-# def valid_float?(string)
-# end
+def valid_float?(string)
+  string.to_f.to_s == string
+end
 
-# def valid_number?(string)
-#   valid_int?(string) || valid_float?(string)
-# end
+def valid_number?(string)
+  valid_int?(string) || valid_float?(string)
+end
 
 puts ">> Welcome to the Loan Calculator!"
 
@@ -55,7 +56,7 @@ loop do
   print "$" 
   loan_amount = gets.chomp
 
-  break if valid_int?(loan_amount)
+  break if valid_number?(loan_amount)
 
   puts ">> Invalid number."
 end
