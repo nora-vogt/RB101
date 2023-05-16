@@ -66,18 +66,36 @@ loop do
   puts ">> Please enter your Annual Percentage Rate (APR):"
   annual_percentage_rate = gets.chomp
 
-   break if valid_number?(annual_percentage_rate)
+  break if valid_number?(annual_percentage_rate)
+
+  puts ">> Invalid APR. Please enter your APR as a number (ex: 7)."
 end
 
-puts ">> Is your loan term in months or years? (Enter 'months' or 'years'):"
-term = gets.chomp.downcase
+duration_in_months = ''
+duration_in_years = ''
+loop do
+  puts ">> Is your loan term in months or years? (Enter 'months' or 'years'):"
+  term = gets.chomp.downcase
 
-if term == 'years'
-  puts ">> Enter your length of your loan in years:"
-  duration_in_years = gets.chomp
-elsif term == 'months'
-  puts ">> Enter the length of your loan in months:"
-  duration_in_months = gets.chomp
+  if term == 'years'
+    puts ">> Enter your length of your loan in years:"
+    duration_in_years = gets.chomp
+  elsif term == 'months'
+    puts ">> Enter the length of your loan in months:"
+    duration_in_months = gets.chomp
+  else
+    puts ">> Invalid entry."
+    next
+  end
+
+  if duration_in_months.empty?
+    duration_in_months = (duration_in_years.to_i * 12).to_s
+  end
+
+  break if valid_number?(duration_in_years) || valid_number?(duration_in_months)
+
+  puts "Invalid loan term. Please enter your loan duration again."
+  # later - have this be two loops with separate, specific error messages to each term
 end
 
 # need to check: if entering in years, need to convert duration to months
