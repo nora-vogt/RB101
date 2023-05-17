@@ -38,14 +38,6 @@ def read_duration(unit_of_time)
   end
 end
 
-# def valid_float?(string)
-#   string.to_f.to_s == string
-# end
-
-# def valid_number?(string)
-#   valid_int?(string) || valid_float?(string)
-# end
-
 puts ">> Welcome to the Loan Calculator!"
 
 loop do
