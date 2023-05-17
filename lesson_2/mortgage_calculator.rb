@@ -20,7 +20,7 @@ also, currently a loan of $0 is allowed
 =end
 
 def valid_number?(string)
-  /^\d+\.?\d?\d?$/.match(string)
+  /^\d+\.?\d?\d?$/.match(string) && string.to_f > 0
 end
 
 def valid_int?(string)
