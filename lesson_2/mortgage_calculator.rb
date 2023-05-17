@@ -81,8 +81,8 @@ loop do
       puts ">> Invalid loan term. Must enter 'months' or 'years'"
       next
     end
-    
-    break if valid_int?(term_in_years) || valid_int?(term_in_months)
+
+    break
   end
 
   puts "\n>> Calculating your monthly payment..."
