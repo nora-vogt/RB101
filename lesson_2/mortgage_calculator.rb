@@ -46,27 +46,29 @@ loop do
   loan_amount = ''
   puts ">> Please enter your loan amount:"
   loop do
-    print "$" 
     loan_amount = gets.chomp
 
     break if valid_number?(loan_amount)
 
-    puts ">> Invalid amount. Enter your loan amount as a positive number (ex: 10000 or 5000.50)"
+    puts ">> Invalid amount. Enter your loan amount as a positive number." 
+    puts "(Example: 100000 or 5000.50)"
   end
 
   annual_percentage_rate = ''
-  puts "\n>> Please enter your Annual Percentage Rate (APR):"
+  puts "\n>> Please enter your interest rate:"
+  puts "(Example: Enter 5 for 5% or 3.25 for 3.25%)"
   loop do
     annual_percentage_rate = gets.chomp
 
     break if valid_number?(annual_percentage_rate)
 
-    puts ">> Invalid APR. Enter your APR as a number (ex: 7 or 4.25)"
+    puts ">> Invalid interest rate. Enter your interest rate as a positive number."
   end
 
   duration_in_months = ''
   duration_in_years = ''
-  puts "\n>> Would you like to enter your loan term in months or years? (Enter 'months' or 'years'):"
+  puts "\n>> How would you like to enter your loan term?"
+  puts "(Enter 'months' or 'years')"
   loop do
     term = gets.chomp.downcase
 
