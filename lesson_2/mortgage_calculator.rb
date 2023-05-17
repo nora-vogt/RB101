@@ -1,4 +1,27 @@
 require 'pry'
+
+=begin
+Regex for loan amount validation:
+^\d+   string starts with one or more digits
+\.?    followed by zero or one period (decimal point)
+\d?    followed by zero or one digit
+\d?    followed by zero or one digit
+$      at the end of the string
+
+currently matches:
+1212.00
+1212.43
+10000
+100.0
+1000.
+
+if want to not match 100. or 100.0, remove the question marks after the digits
+=end
+
+def valid_loan_amount?(string)
+  /^\d+\.?\d?\d?$/.match(string)
+end
+
 def valid_int?(string)
   string.to_i.to_s == string
 end
@@ -20,9 +43,9 @@ loop do
     print "$" 
     loan_amount = gets.chomp
 
-    break if valid_number?(loan_amount)
+    break if valid_loan_amount?(loan_amount)
 
-    puts ">> Invalid number."
+    puts ">> Invalid amount. Enter your loan amount as a number (ex: 10000 or 5000.50)"
   end
 
   annual_percentage_rate = ''
@@ -66,7 +89,7 @@ loop do
 
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
-  monthly_payment = loan_amount.to_i * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-duration_in_months.to_i)))
+  monthly_payment = loan_amount.to_f * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-duration_in_months.to_i)))
 
   puts "Your monthly payment is $#{format('%.2f', monthly_payment)}"   # Kernel#format('%.2f', number) - rounds float to two decimal places; returns rounded number as a String
 
