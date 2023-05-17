@@ -27,6 +27,16 @@ def valid_int?(string)
   string.to_i.to_s == string && string.to_i != 0
 end
 
+def read_duration(unit_of_time)
+  loop do
+    duration = gets.chomp
+
+    return duration if valid_int?(duration)
+
+    puts ">>Invalid entry. Enter the number of #{unit_of_time} as a whole number (ex: '120'):"
+  end
+end
+
 # def valid_float?(string)
 #   string.to_f.to_s == string
 # end
@@ -67,28 +77,15 @@ loop do
 
     if term == 'years'
       puts ">> Enter your length of your loan in years:"
-
-      loop do
-        duration_in_years = gets.chomp
-
-        break if valid_int?(duration_in_years)
-
-        puts ">> Invalid entry. Enter the number of years as a whole number (ex: '10'):"
-      end
+      duration_in_years = read_duration('years')
     elsif term == 'months'
       puts ">> Enter the length of your loan in months:"
-      loop do
-        duration_in_months = gets.chomp
-
-        break if valid_int?(duration_in_months)
-
-        puts ">>Invalid entry. Enter the number of months as a whole number (ex: '120'):"
-      end
+      duration_in_months = read_duration('months')
     else
       puts ">> Invalid loan term. Must enter 'months' or 'years'"
       next
     end
-
+    
     break if valid_int?(duration_in_years) || valid_int?(duration_in_months)
   end
 
