@@ -28,6 +28,7 @@ def valid_int?(string)
 end
 
 def read_duration(unit_of_time)
+  puts ">> Enter your length of your loan in #{unit_of_time}:"
   loop do
     duration = gets.chomp
 
@@ -76,10 +77,8 @@ loop do
     term = gets.chomp.downcase
 
     if term == 'years'
-      puts ">> Enter your length of your loan in years:"
       duration_in_years = read_duration('years')
     elsif term == 'months'
-      puts ">> Enter the length of your loan in months:"
       duration_in_months = read_duration('months')
     else
       puts ">> Invalid loan term. Must enter 'months' or 'years'"
