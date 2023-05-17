@@ -1,39 +1,4 @@
 require 'pry'
-# loan amount
-# Annual Percentage Rate (APR)
-# loan duration
-
-# need to calculate:
-  # monthly interest rate
-  # loan duration in months
-  # monthly payment
-
-# PSEUDOCODE: 
-# Display welcome message
-# Ask user for loan amount - "loan_amount"
-  # need to validate & format loan amount
-    # validate that amount is a number
-    # may have to remove commas or any non-numeric character
-# Ask user for annual percentage rate (APR) of loan = annual_percentage_rate
-  # validate that is a number
-  # remove any non-numeric characters
-# Ask user: is your loan term in months or years?
-  # if months, ask user for loan duration in months - "duration_in_months"
-    # validate number
-  # if years, ask user for loan duration in years - "duration_in_years"
-    # validate number
-# Ask user for monthly payment amount - "monthly_payment"
-  # validate that payment amount is a number
-
-# convert APR to monthly interest rate (monthly rate = APR / (12 * 100)) => expresses interest rate as number. ex: APR = 6.0% -> monthly is 0.5% -> 0.005 decimal conversion
-
-# calculate monthly loan payment
-# display monthly payment amount
-
-  # formula for calculation
- # m = p * (j / (1 - (1 + j)**(-n)))
- # monthly_payment = loan_amount * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-duration_in_months)))
-
 def valid_int?(string)
   string.to_i.to_s == string
 end
@@ -83,7 +48,7 @@ loop do
       puts ">> Enter the length of your loan in months:"
       duration_in_months = gets.chomp
     else
-      puts ">> Invalid entry."
+      puts ">> Invalid entry. Try again."
       next
     end
 
