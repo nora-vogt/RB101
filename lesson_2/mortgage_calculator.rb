@@ -34,11 +34,11 @@ def read_duration(unit_of_time)
 
     return duration if valid_int?(duration)
 
-    puts ">>Invalid entry. Enter the number of #{unit_of_time} as a whole number (ex: '120'):"
+    puts ">>Invalid entry. Enter the number of #{unit_of_time} as a whole number (ex: '18'):"
   end
 end
 puts "\n-------------------------------------"
-puts ">> Welcome to Mortgage Calculator!"
+puts ">> Welcome to Loan Calculator!"
 puts "-------------------------------------"
 puts "\n"
 
@@ -66,8 +66,8 @@ loop do
 
   duration_in_months = ''
   duration_in_years = ''
+  puts "\n>> Would you like to enter your loan term in months or years? (Enter 'months' or 'years'):"
   loop do
-    puts "\n>> Is your loan term in months or years? (Enter 'months' or 'years'):"
     term = gets.chomp.downcase
 
     if term == 'years'
@@ -101,4 +101,4 @@ loop do
   break if answer != 'y'
 end
 
-puts "\n>> Thank you for using Mortgage Calculator. Goodbye!"
+puts "\n>> Thank you for using Loan Calculator. Goodbye!"
