@@ -24,7 +24,7 @@ def valid_number?(string)
 end
 
 def valid_int?(string)
-  string.to_i.to_s == string && string.to_i != 0
+  string.to_i.to_s == string && string.to_i > 0
 end
 
 def read_duration(unit_of_time)
@@ -34,7 +34,8 @@ def read_duration(unit_of_time)
 
     return duration if valid_int?(duration)
 
-    puts ">>Invalid entry. Enter the number of #{unit_of_time} as a whole number (ex: '18'):"
+    puts ">>Invalid entry. Enter the number of #{unit_of_time} as a positive number." 
+    puts "(Example: 18)"
   end
 end
 puts "\n-------------------------------------"
