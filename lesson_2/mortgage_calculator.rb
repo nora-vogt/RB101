@@ -87,14 +87,15 @@ loop do
 
   puts "\n>> Calculating your monthly payment..."
 
-  # converting loan entered in years to months
   if term_in_months.empty?
-    term_in_months = (term_in_years.to_i * 12).to_s   # keeps loan term as a string
+    term_in_months = term_in_years.to_i * 12
+  else
+    term_in_months = term_in_months.to_i
   end
 
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
-  monthly_payment = loan_amount.to_f * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-term_in_months.to_i)))
+  monthly_payment = loan_amount.to_f * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-term_in_months)))
 
   puts "Your monthly payment is $#{format('%.2f', monthly_payment)}"   # Kernel#format('%.2f', number) - rounds float to two decimal places; returns rounded number as a String
 
