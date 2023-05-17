@@ -18,7 +18,7 @@ currently matches:
 if want to not match 100. or 100.0, remove the question marks after the digits
 =end
 
-def valid_loan_amount?(string)
+def valid_number?(string)
   /^\d+\.?\d?\d?$/.match(string)
 end
 
@@ -26,13 +26,13 @@ def valid_int?(string)
   string.to_i.to_s == string
 end
 
-def valid_float?(string)
-  string.to_f.to_s == string
-end
+# def valid_float?(string)
+#   string.to_f.to_s == string
+# end
 
-def valid_number?(string)
-  valid_int?(string) || valid_float?(string)
-end
+# def valid_number?(string)
+#   valid_int?(string) || valid_float?(string)
+# end
 
 puts ">> Welcome to the Loan Calculator!"
 
@@ -43,7 +43,7 @@ loop do
     print "$" 
     loan_amount = gets.chomp
 
-    break if valid_loan_amount?(loan_amount)
+    break if valid_number?(loan_amount)
 
     puts ">> Invalid amount. Enter your loan amount as a number (ex: 10000 or 5000.50)"
   end
@@ -55,7 +55,7 @@ loop do
 
     break if valid_number?(annual_percentage_rate)
 
-    puts ">> Invalid APR. Please enter your APR as a number (ex: 7)."
+    puts ">> Invalid APR. Enter your APR as a number (ex: 7 or 4.25)"
   end
 
   duration_in_months = ''
