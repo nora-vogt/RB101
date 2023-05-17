@@ -16,6 +16,7 @@ currently matches:
 1000.
 
 if want to not match 100. or 100.0, remove the question marks after the digits
+also, currently a loan of $0 is allowed
 =end
 
 def valid_number?(string)
@@ -23,7 +24,7 @@ def valid_number?(string)
 end
 
 def valid_int?(string)
-  string.to_i.to_s == string
+  string.to_i.to_s == string && string.to_i != 0
 end
 
 # def valid_float?(string)
