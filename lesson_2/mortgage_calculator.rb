@@ -66,26 +66,37 @@ loop do
 
     if term == 'years'
       puts ">> Enter your length of your loan in years:"
-      duration_in_years = gets.chomp
+
+      loop do
+        duration_in_years = gets.chomp
+
+        break if valid_int?(duration_in_years)
+
+        puts ">> Invalid entry. Enter the number of years as a whole number (ex: '10'):"
+      end
     elsif term == 'months'
       puts ">> Enter the length of your loan in months:"
-      duration_in_months = gets.chomp
+      loop do
+        duration_in_months = gets.chomp
+
+        break if valid_int?(duration_in_months)
+
+        puts ">>Invalid entry. Enter the number of months as a whole number (ex: '120'):"
+      end
     else
-      puts ">> Invalid entry. Try again."
+      puts ">> Invalid loan term. Must enter 'months' or 'years'"
       next
     end
 
-    if duration_in_months.empty?
-      duration_in_months = (duration_in_years.to_i * 12).to_s   # keeps loan term as a string
-    end
-
-    break if valid_number?(duration_in_years) || valid_number?(duration_in_months)
-
-    puts "Invalid loan term. Please enter your loan duration again."
-    # later - have this be two loops with separate, specific error messages to each term
+    break if valid_int?(duration_in_years) || valid_int?(duration_in_months)
   end
 
   puts ">> Calculating your monthly payment..."
+
+  # converting loan entered in years to months
+  if duration_in_months.empty?
+    duration_in_months = (duration_in_years.to_i * 12).to_s   # keeps loan term as a string
+  end
 
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
