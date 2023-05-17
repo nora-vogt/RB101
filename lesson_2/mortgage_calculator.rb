@@ -66,35 +66,35 @@ loop do
     puts ">> Invalid interest rate. Enter your interest rate as a positive number."
   end
 
-  duration_in_months = ''
-  duration_in_years = ''
+  term_in_months = ''
+  term_in_years = ''
   puts "\n>> How would you like to enter your loan term?"
   puts "(Enter 'months' or 'years')"
   loop do
     term = gets.chomp.downcase
 
     if term == 'years'
-      duration_in_years = read_duration('years')
+      term_in_years = read_duration('years')
     elsif term == 'months'
-      duration_in_months = read_duration('months')
+      term_in_months = read_duration('months')
     else
       puts ">> Invalid loan term. Must enter 'months' or 'years'"
       next
     end
     
-    break if valid_int?(duration_in_years) || valid_int?(duration_in_months)
+    break if valid_int?(term_in_years) || valid_int?(term_in_months)
   end
 
   puts "\n>> Calculating your monthly payment..."
 
   # converting loan entered in years to months
-  if duration_in_months.empty?
-    duration_in_months = (duration_in_years.to_i * 12).to_s   # keeps loan term as a string
+  if term_in_months.empty?
+    term_in_months = (term_in_years.to_i * 12).to_s   # keeps loan term as a string
   end
 
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
-  monthly_payment = loan_amount.to_f * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-duration_in_months.to_i)))
+  monthly_payment = loan_amount.to_f * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-term_in_months.to_i)))
 
   puts "Your monthly payment is $#{format('%.2f', monthly_payment)}"   # Kernel#format('%.2f', number) - rounds float to two decimal places; returns rounded number as a String
 
