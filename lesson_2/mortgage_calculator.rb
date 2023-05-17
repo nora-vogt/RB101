@@ -1,7 +1,7 @@
 require 'pry'
 
 =begin
-Regex for loan amount validation:
+Regex for loan amount & APR validation:
 ^\d+   string starts with one or more digits
 \.?    followed by zero or one period (decimal point)
 \d?    followed by zero or one digit
@@ -28,7 +28,7 @@ def valid_int?(string)
 end
 
 def read_duration(unit_of_time)
-  puts ">> Enter your length of your loan in #{unit_of_time}:"
+  puts "\n>> Enter your length of your loan in #{unit_of_time}:"
   loop do
     duration = gets.chomp
 
@@ -37,24 +37,26 @@ def read_duration(unit_of_time)
     puts ">>Invalid entry. Enter the number of #{unit_of_time} as a whole number (ex: '120'):"
   end
 end
-
-puts ">> Welcome to the Loan Calculator!"
+puts "\n-------------------------------------"
+puts ">> Welcome to Mortgage Calculator!"
+puts "-------------------------------------"
+puts "\n"
 
 loop do
   loan_amount = ''
+  puts ">> Please enter your loan amount:"
   loop do
-    puts ">> Please enter your loan amount:"
     print "$" 
     loan_amount = gets.chomp
 
     break if valid_number?(loan_amount)
 
-    puts ">> Invalid amount. Enter your loan amount as a number (ex: 10000 or 5000.50)"
+    puts ">> Invalid amount. Enter your loan amount as a positive number (ex: 10000 or 5000.50)"
   end
 
   annual_percentage_rate = ''
+  puts "\n>> Please enter your Annual Percentage Rate (APR):"
   loop do
-    puts ">> Please enter your Annual Percentage Rate (APR):"
     annual_percentage_rate = gets.chomp
 
     break if valid_number?(annual_percentage_rate)
@@ -65,7 +67,7 @@ loop do
   duration_in_months = ''
   duration_in_years = ''
   loop do
-    puts ">> Is your loan term in months or years? (Enter 'months' or 'years'):"
+    puts "\n>> Is your loan term in months or years? (Enter 'months' or 'years'):"
     term = gets.chomp.downcase
 
     if term == 'years'
@@ -80,7 +82,7 @@ loop do
     break if valid_int?(duration_in_years) || valid_int?(duration_in_months)
   end
 
-  puts ">> Calculating your monthly payment..."
+  puts "\n>> Calculating your monthly payment..."
 
   # converting loan entered in years to months
   if duration_in_months.empty?
@@ -93,10 +95,10 @@ loop do
 
   puts "Your monthly payment is $#{format('%.2f', monthly_payment)}"   # Kernel#format('%.2f', number) - rounds float to two decimal places; returns rounded number as a String
 
-  puts ">> Would you like to calculate another loan? (Y to calculate again):"
+  puts "\n>> Would you like to calculate another loan? (Y to calculate again):"
   answer = gets.chomp.downcase
 
   break if answer != 'y'
 end
 
-puts ">> Thank you for using Mortgage Calculator. Goodbye!"
+puts "\n>> Thank you for using Mortgage Calculator. Goodbye!"
