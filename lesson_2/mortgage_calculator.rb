@@ -1,3 +1,4 @@
+require 'pry'
 def prompt(message)
   puts "=> #{message}"
 end
@@ -12,25 +13,25 @@ $      at the end of the string
 (maximum of 2 decimal places is allowed)
 =end
 
-def valid_number?(string)
+def valid_dollar_amount?(string)
   /^\d+\.?\d?\d?$/.match(string) && string.to_f > 0
 end
 
-def valid_int?(string)
-  string.to_i.to_s == string && string.to_i > 0
+def valid_duration?(string)
+  string.to_f.to_s == string && string.to_i > 0
 end
 
-def read_duration(unit_of_time)
-  prompt("Enter your length of your loan in #{unit_of_time}:")
-  loop do
-    duration = gets.chomp
+# def read_duration(unit_of_time)
+#   prompt("Enter your length of your loan in #{unit_of_time}:")
+#   loop do
+#     duration = gets.chomp
 
-    return duration if valid_int?(duration)
+#     return duration if valid_int?(duration)
 
-    prompt("Invalid entry. Enter the #{unit_of_time} as a positive number.")
-    prompt("(Example: 18)")
-  end
-end
+#     prompt("Invalid entry. Enter the #{unit_of_time} as a positive number.")
+#     prompt("(Example: 18)")
+#   end
+# end
 
 system("clear")
 puts "\n-------------------------------------"
@@ -47,7 +48,7 @@ loop do
   loop do
     loan_amount = gets.chomp
 
-    break if valid_number?(loan_amount)
+    break if valid_dollar_amount?(loan_amount)
 
     prompt("Invalid amount. Enter your loan amount as a positive number.")
     prompt("(Example: 100000 or 5000.50)")
@@ -61,41 +62,28 @@ loop do
   loop do
     annual_percentage_rate = gets.chomp
 
-    break if valid_number?(annual_percentage_rate)
+    break if valid_dollar_amount?(annual_percentage_rate) # change to have own validation
 
     prompt("Invalid entry. Enter the interest rate as a positive number.")
   end
 
   puts "\n"
-  prompt("How would you like to enter your loan term?")
-  prompt("(Enter 'months' or 'years')")
+  prompt("Please enter your loan term in years.")
+  prompt("Example: 10 for 10 years, 5.5 for 5 years, 6 months")
 
-  term_in_months = ''
   term_in_years = ''
   loop do
-    term = gets.chomp.downcase
+    term_in_years = gets.chomp.downcase
 
-    if term == 'years'
-      term_in_years = read_duration('years')
-    elsif term == 'months'
-      term_in_months = read_duration('months')
-    else
-      prompt("Invalid loan term. Must enter 'months' or 'years':")
-      next
-    end
+    break if valid_duration?(term_in_years)
 
-    break
+    prompt("Invalid loan term. Enter the years as a positive number.") 
   end
 
   puts "\n"
   prompt("Calculating your monthly payment...")
 
-  if term_in_months.empty?
-    term_in_months = term_in_years.to_i * 12
-  else
-    term_in_months = term_in_months.to_i
-  end
-
+  term_in_months = term_in_years.to_f * 12
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
   monthly_payment = loan_amount.to_f *
