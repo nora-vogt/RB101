@@ -158,9 +158,7 @@ loop do
   puts format(return_message('monthly_int'), 
   interest: format('%.2f', monthly_percentage_rate)) + "%"
 
-  #prompt("Your monthly interest rate is #{format('%.2f', monthly_percentage_rate)}%.")
   puts format(return_message('loan_term_months'), months: term_in_months)
-  #prompt("Your loan term is #{term_in_months} months.")
 
   spacer
   prompt('calculate_again')
