@@ -30,7 +30,7 @@ def valid_number?(string)
 end
 
 def valid_interest_rate?(string)
-  valid_number?(string) && string.to_f >= 0 # next: update calculations so 0% interest is allowed
+  valid_number?(string) && string.to_f >= 0
 end
 
 def valid_duration?(string)
