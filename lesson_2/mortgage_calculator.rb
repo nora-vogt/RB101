@@ -37,7 +37,7 @@ def valid_duration?(string)
   valid_number?(string) && string.to_f > 0
 end
 
-def set_amount
+def get_amount
   prompt("Please enter your loan amount:")
   loop do
     amount = gets.chomp
@@ -49,13 +49,23 @@ def set_amount
   end
 end
 
-def set_annual_percentage_rate
+def get_annual_percentage_rate
   loop do
     annual_percentage_rate = gets.chomp
 
     return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
 
     prompt("Invalid entry. Enter the APR as a positive number.")
+  end
+end
+
+def get_loan_term
+  loop do
+    term_in_years = gets.chomp
+    
+    return term_in_years if valid_duration?(term_in_years)
+
+    prompt("Invalid loan term. Enter the years as a positive number.")
   end
 end
 
@@ -85,27 +95,20 @@ puts "-------------------------------------"
 puts "\n"
 
 loop do
-  loan_amount = set_amount()
+  loan_amount = get_amount()
 
   puts "\n"
   prompt("Please enter your Annual Percentage Rate.")
-  prompt("(Whole numbers and decimals are ok - don't include pecentage sign.)")
+  prompt("(Don't include the pecentage sign.)")
   prompt("(Example: Enter 5 for 5% or 3.25 for 3.25%)")
 
-  annual_percentage_rate = set_annual_percentage_rate()
+  annual_percentage_rate = get_annual_percentage_rate()
 
   puts "\n"
   prompt("Please enter your loan term in years.")
   prompt("Example: 10 for 10 years, 5.5 for 5 years, 6 months")
 
-  term_in_years = ''
-  loop do
-    term_in_years = gets.chomp.downcase
-    
-    break if valid_duration?(term_in_years)
-
-    prompt("Invalid loan term. Enter the years as a positive number.")
-  end
+  term_in_years = get_loan_term
 
   puts "\n"
   prompt("Calculating your monthly payment...")
