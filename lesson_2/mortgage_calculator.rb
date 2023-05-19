@@ -107,17 +107,21 @@ loop do
 
   term_in_months = term_in_years.to_f * 12
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
-
-  monthly_payment = loan_amount.to_f *
-                    (monthly_int_rate /
-                    (1 - (1 + monthly_int_rate)**(-term_in_months)))
+  
+  if annual_percentage_rate.to_f == 0.0
+    monthly_payment = loan_amount.to_f / term_in_months
+  else
+    monthly_payment = loan_amount.to_f *
+                      (monthly_int_rate /
+                      (1 - (1 + monthly_int_rate)**(-term_in_months)))
+  end
 
   puts "\n"
   prompt(loan_summary(loan_amount, annual_percentage_rate, term_in_years))
 
   puts "\n"
   prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}.")
-  prompt("Your monthly interest rate is #{format('%.4f', monthly_int_rate)}%.")
+  prompt("Your monthly interest rate is #{format('%.2f', monthly_int_rate)}%.")
   prompt("Your loan term is #{term_in_months} months.")
 
   puts "\n"
