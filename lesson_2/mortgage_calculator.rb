@@ -63,7 +63,6 @@ end
 
 def get_amount
   prompt('enter_loan')
-  prompt('example_amount')
   loop do
     amount = gets.chomp
 
@@ -75,6 +74,7 @@ def get_amount
 end
 
 def get_annual_percentage_rate
+  prompt('enter_apr')
   loop do
     annual_percentage_rate = gets.chomp
     
@@ -86,6 +86,7 @@ def get_annual_percentage_rate
 end
 
 def get_loan_term
+  prompt('enter_term')
   loop do
     term_in_years = gets.chomp
     
@@ -115,15 +116,11 @@ loop do
   loan_amount = get_amount()
 
   spacer
-  prompt('enter_apr')
-  prompt('example_apr')
-
+  
   annual_percentage_rate = get_annual_percentage_rate()
 
   spacer
-  prompt('enter_term')
-  prompt('example_term')
-
+ 
   term_in_years = get_loan_term
 
   spacer
