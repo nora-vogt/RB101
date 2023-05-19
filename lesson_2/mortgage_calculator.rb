@@ -14,7 +14,7 @@ $      at the end of the string
 =end
 
 def greater_than_zero?(string)
-  string.to_f > 0
+  string.to_f > 0.0
 end
 
 def valid_dollar_amount?(string)
@@ -38,7 +38,7 @@ def valid_interest_rate?(string)
 end
 
 def valid_duration?(string)
-  valid_number?(string) && string.to_f > 0.0
+  valid_number?(string) && greater_than_zero?(string)
 end
 
 def get_amount
@@ -49,8 +49,9 @@ def get_amount
 
     return amount if valid_dollar_amount?(amount)
 
+    puts "\n"
     prompt("Invalid amount. Amount must be a number greater than zero.")
-    prompt("Two decimal places are allowed.")
+    prompt("Two decimal places are allowed. Try again:")
   end
 end
 
@@ -60,7 +61,8 @@ def get_annual_percentage_rate
     
     return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
 
-    prompt("Invalid entry. Enter the APR as a positive number.")
+    puts "\n"
+    prompt("Invalid APR. Enter a positive number without a % sign:")
   end
 end
 
@@ -77,7 +79,7 @@ end
 
 def loan_summary(amount, interest, term)
   <<-SUMMARY 
-  With a loan amount of $#{amount} at #{interest}% APR, 
+  Your loan amount is $#{amount} at #{interest}% APR, 
     paid over #{term} years:
   SUMMARY
 end
@@ -111,7 +113,7 @@ loop do
 
   puts "\n"
   prompt("Please enter your loan term in years.")
-  prompt("Example: 10 for 10 years, 5.5 for 5 years, 6 months")
+  prompt("(Example: 10 for 10 years, 5.5 for 5 years, 6 months)")
 
   term_in_years = get_loan_term
 
