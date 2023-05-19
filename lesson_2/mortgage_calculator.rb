@@ -82,7 +82,7 @@ loop do
     
     break if valid_duration?(term_in_years)
 
-    prompt("Invalid loan term. Enter the years as a positive number.") 
+    prompt("Invalid loan term. Enter the years as a positive number.")
   end
 
   puts "\n"
@@ -102,7 +102,7 @@ loop do
   prompt("Would you like to calculate another payment? (Y to calculate again):")
   answer = gets.chomp.downcase
 
-  if answer = 'y'
+  if answer == 'y'
     system("clear")
   else
     break
