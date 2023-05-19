@@ -1,23 +1,18 @@
 require 'pry'
 
 =begin
-Regex for loan amount & APR validation:
+Regex for loan amount & interest rate validation:
 ^\d+   string starts with one or more digits
 \.?    followed by zero or one period (decimal point)
 \d?    followed by zero or one digit
 \d?    followed by zero or one digit
 $      at the end of the string
-
-currently matches:
-1212.00
-1212.43
-10000
-100.0
-1000.
-
-if want to not match 100. or 100.0, remove the question marks after the digits
-also, currently a loan of $0 is allowed
+(maximum of 2 decimal places is allowed)
 =end
+
+def prompt(message)
+  puts "=> #{message}"
+end
 
 def valid_number?(string)
   /^\d+\.?\d?\d?$/.match(string) && string.to_f > 0
@@ -28,48 +23,51 @@ def valid_int?(string)
 end
 
 def read_duration(unit_of_time)
-  puts "\n>> Enter your length of your loan in #{unit_of_time}:"
+  prompt("Enter your length of your loan in #{unit_of_time}:")
   loop do
     duration = gets.chomp
 
     return duration if valid_int?(duration)
 
-    puts ">>Invalid entry. Enter the number of #{unit_of_time} as a positive number." 
-    puts "(Example: 18)"
+    prompt("Invalid entry. Enter the number of #{unit_of_time} as a positive number.") 
+    prompt("(Example: 18)")
   end
 end
+
 puts "\n-------------------------------------"
-puts ">> Welcome to Loan Calculator!"
+prompt("Welcome to Loan Calculator!")
 puts "-------------------------------------"
 puts "\n"
 
 loop do
   loan_amount = ''
-  puts ">> Please enter your loan amount:"
+  prompt("Please enter your loan amount:")
   loop do
     loan_amount = gets.chomp
 
     break if valid_number?(loan_amount)
 
-    puts ">> Invalid amount. Enter your loan amount as a positive number." 
-    puts "(Example: 100000 or 5000.50)"
+    prompt("Invalid amount. Enter your loan amount as a positive number.") 
+    prompt("(Example: 100000 or 5000.50)")
   end
 
   annual_percentage_rate = ''
-  puts "\n>> Please enter your interest rate:"
-  puts "(Example: Enter 5 for 5% or 3.25 for 3.25%)"
+  puts "\n"
+  prompt("Please enter your interest rate:")
+  prompt("(Example: Enter 5 for 5% or 3.25 for 3.25%)")
   loop do
     annual_percentage_rate = gets.chomp
 
     break if valid_number?(annual_percentage_rate)
 
-    puts ">> Invalid interest rate. Enter your interest rate as a positive number."
+    prompt("Invalid interest rate. Enter your interest rate as a positive number.")
   end
 
   term_in_months = ''
   term_in_years = ''
-  puts "\n>> How would you like to enter your loan term?"
-  puts "(Enter 'months' or 'years')"
+  puts "\n"
+  prompt("How would you like to enter your loan term?")
+  prompt("(Enter 'months' or 'years')")
   loop do
     term = gets.chomp.downcase
 
@@ -78,14 +76,15 @@ loop do
     elsif term == 'months'
       term_in_months = read_duration('months')
     else
-      puts ">> Invalid loan term. Must enter 'months' or 'years'"
+      prompt("Invalid loan term. Must enter 'months' or 'years':")
       next
     end
 
     break
   end
 
-  puts "\n>> Calculating your monthly payment..."
+  puts "\n"
+  prompt("Calculating your monthly payment...")
 
   if term_in_months.empty?
     term_in_months = term_in_years.to_i * 12
@@ -95,14 +94,18 @@ loop do
 
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
 
-  monthly_payment = loan_amount.to_f * (monthly_int_rate / (1 - (1 + monthly_int_rate)**(-term_in_months)))
+  monthly_payment = loan_amount.to_f * 
+                    (monthly_int_rate / 
+                    (1 - (1 + monthly_int_rate)**(-term_in_months)))
 
-  puts "Your monthly payment is $#{format('%.2f', monthly_payment)}"   # Kernel#format('%.2f', number) - rounds float to two decimal places; returns rounded number as a String
+  puts "\n"
+  prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}")  
 
-  puts "\n>> Would you like to calculate another loan? (Y to calculate again):"
+  puts "\n"
+  prompt("Would you like to calculate another payment? (Y to calculate again):")
   answer = gets.chomp.downcase
 
   break if answer != 'y'
 end
 
-puts "\n>> Thank you for using Loan Calculator. Goodbye!"
+prompt("Thank you for using Loan Calculator. Goodbye!")
