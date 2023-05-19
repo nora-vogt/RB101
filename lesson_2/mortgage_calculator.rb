@@ -25,8 +25,16 @@ def valid_float?(string)
   string.to_f.to_s == string
 end
 
+def valid_number?(string)
+  valid_int?(string) || valid_float?(string)
+end
+
+def valid_interest_rate?(string)
+  valid_number?(string) && string.to_f >= 0 # next: update calculations so 0% interest is allowed
+end
+
 def valid_duration?(string)
-  (valid_int?(string) || valid_float?(string)) && string.to_f > 0
+  valid_number?(string) && string.to_f > 0
 end
 
 def loan_summary(amount, interest, term)
@@ -74,7 +82,7 @@ loop do
   loop do
     annual_percentage_rate = gets.chomp
 
-    break if valid_dollar_amount?(annual_percentage_rate) # change to have own validation
+    break if valid_interest_rate?(annual_percentage_rate)
 
     prompt("Invalid entry. Enter the interest rate as a positive number.")
   end
