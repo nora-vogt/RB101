@@ -33,7 +33,16 @@ system("clear")
 puts "\n-------------------------------------"
 prompt("Welcome to Mortgage Calculator!")
 puts <<-INTRO
-  You can use this calculator to calculate your monthly payment.
+
+  You can use this calculator to find your:
+    - Monthly payment amount
+    - Loan term in months
+    - Monthly interest rate
+
+  To do so, you will need:
+    - Your loan amount
+    - Your loan's Annual Percentage Rate (APR)
+    - Your loan term in years
 INTRO
 puts "-------------------------------------"
 puts "\n"
@@ -93,8 +102,11 @@ loop do
   prompt("Would you like to calculate another payment? (Y to calculate again):")
   answer = gets.chomp.downcase
 
-  system("clear")
-  break if answer != 'y'
+  if answer = 'y'
+    system("clear")
+  else
+    break
+  end
 end
 
 prompt("Thank you for using Loan Calculator. Goodbye!")
