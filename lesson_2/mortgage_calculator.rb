@@ -1,6 +1,10 @@
 require 'pry'
-def prompt(message)
-  puts "=> #{message}"
+require 'yaml'
+
+MESSAGES = YAML.load_file('mortgage_messages.yml')
+
+def prompt(key)
+  puts "=> #{MESSAGES[key]}"
 end
 
 =begin
@@ -12,6 +16,22 @@ Regex for loan amount & interest rate validation:
 $      at the end of the string
 (maximum of 2 decimal places is allowed)
 =end
+
+def spacer
+  puts MESSAGES['empty_line']
+end
+
+def divider
+ puts MESSAGES['divider']
+end
+
+def print_message_no_prompt(key)
+  puts MESSAGES[key]
+end
+
+def return_message(key)
+  MESSAGES[key]
+end
 
 def greater_than_zero?(string)
   string.to_f > 0.0
@@ -42,16 +62,15 @@ def valid_duration?(string)
 end
 
 def get_amount
-  prompt("Please enter your loan amount:")
-  prompt("(Example: 100000 or 5000.50)")
+  prompt('enter_loan')
+  prompt('example_amount')
   loop do
     amount = gets.chomp
 
     return amount if valid_dollar_amount?(amount)
 
-    puts "\n"
-    prompt("Invalid amount. Amount must be a number greater than zero.")
-    prompt("Two decimal places are allowed. Try again:")
+    spacer
+    prompt('invalid_amount')
   end
 end
 
@@ -61,8 +80,8 @@ def get_annual_percentage_rate
     
     return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
 
-    puts "\n"
-    prompt("Invalid APR. Enter a positive number without a % sign:")
+    spacer
+    prompt('invalid_apr')
   end
 end
 
@@ -72,53 +91,43 @@ def get_loan_term
     
     return term_in_years if valid_duration?(term_in_years)
 
-    prompt("Invalid loan term. Loan term must be at positive number.")
-    prompt("Loan term must be at least one year.")
+    prompt('invalid_term')
   end
 end
 
 def loan_summary(amount, interest, term)
   <<-SUMMARY 
-  Your loan amount is $#{amount} at #{interest}% APR, 
+  Based on an amount of $#{amount} at #{interest}% APR, 
     paid over #{term} years:
   SUMMARY
 end
 
 system("clear")
-puts "\n-------------------------------------"
-prompt("Welcome to Mortgage Calculator!")
-puts <<-INTRO
 
-  You can use this calculator to determine your:
-    - Monthly payment amount
-    - Loan term in months
-    - Monthly interest rate
-
-  To do so, you will need:
-    - Your loan amount
-    - Your loan's Annual Percentage Rate (APR)
-    - Your loan term in years
-INTRO
-puts "-------------------------------------"
-puts "\n"
+divider
+print_message_no_prompt('welcome')
+spacer
+print_message_no_prompt('intro')
+divider
+spacer
 
 loop do
   loan_amount = get_amount()
 
-  puts "\n"
-  prompt("Please enter your Annual Percentage Rate.")
-  prompt("Example: 3.0 for 3% or 5.25 for 5.25%")
+  spacer
+  prompt('enter_apr')
+  prompt('example_apr')
 
   annual_percentage_rate = get_annual_percentage_rate()
 
-  puts "\n"
-  prompt("Please enter your loan term in years.")
-  prompt("(Example: 10 for 10 years, 5.5 for 5 years, 6 months)")
+  spacer
+  prompt('enter_term')
+  prompt('example_term')
 
   term_in_years = get_loan_term
 
-  puts "\n"
-  prompt("Calculating your monthly payment...")
+  spacer
+  prompt('calculating')
   sleep(1)
   system("clear")
 
@@ -135,16 +144,26 @@ loop do
                       (1 - (1 + monthly_interest_rate)**(-term_in_months)))
   end
 
-  puts "\n"
+  spacer
+
   prompt(loan_summary(loan_amount, annual_percentage_rate, term_in_years))
 
-  puts "\n"
-  prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}.")
-  prompt("Your monthly interest rate is #{format('%.2f', monthly_percentage_rate)}%.")
-  prompt("Your loan term is #{term_in_months} months.")
+  spacer
 
-  puts "\n"
-  prompt("Would you like to calculate another loan? (Y to calculate again):")
+  # format(return_message(key_from_yml), var_to_interpolate: local_var)
+  #in this case, we are formatting monthly payment to 2 decimal points
+  puts format(return_message('monthly_pmt'), 
+  payment: format('%.2f', monthly_payment))
+  
+  puts format(return_message('monthly_int'), 
+  interest: format('%.2f', monthly_percentage_rate)) + "%"
+
+  #prompt("Your monthly interest rate is #{format('%.2f', monthly_percentage_rate)}%.")
+  puts format(return_message('loan_term_months'), months: term_in_months)
+  #prompt("Your loan term is #{term_in_months} months.")
+
+  spacer
+  prompt('calculate_again')
   answer = gets.chomp.downcase
 
   if answer == 'y'
@@ -154,5 +173,5 @@ loop do
   end
 end
 
-puts "\n"
-prompt("Thank you for using Mortgage Calculator. Goodbye!")
+spacer
+prompt('goodbye')
