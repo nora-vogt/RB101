@@ -37,6 +37,18 @@ def valid_duration?(string)
   valid_number?(string) && string.to_f > 0
 end
 
+def set_amount
+  prompt("Please enter your loan amount:")
+  loop do
+    amount = gets.chomp
+
+    return amount if valid_dollar_amount?(amount)
+
+    prompt("Invalid amount. Enter your loan amount as a positive number.")
+    prompt("(Example: 100000 or 5000.50)")
+  end
+end
+
 def loan_summary(amount, interest, term)
   <<-SUMMARY 
   With a loan amount of $#{amount} at #{interest}% APR, 
@@ -63,16 +75,7 @@ puts "-------------------------------------"
 puts "\n"
 
 loop do
-  loan_amount = ''
-  prompt("Please enter your loan amount:")
-  loop do
-    loan_amount = gets.chomp
-
-    break if valid_dollar_amount?(loan_amount)
-
-    prompt("Invalid amount. Enter your loan amount as a positive number.")
-    prompt("(Example: 100000 or 5000.50)")
-  end
+  loan_amount = set_amount
 
   puts "\n"
   prompt("Please enter your interest rate:")
