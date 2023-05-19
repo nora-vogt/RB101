@@ -49,6 +49,16 @@ def set_amount
   end
 end
 
+def set_annual_percentage_rate
+  loop do
+    annual_percentage_rate = gets.chomp
+
+    return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
+
+    prompt("Invalid entry. Enter the APR as a positive number.")
+  end
+end
+
 def loan_summary(amount, interest, term)
   <<-SUMMARY 
   With a loan amount of $#{amount} at #{interest}% APR, 
@@ -75,20 +85,14 @@ puts "-------------------------------------"
 puts "\n"
 
 loop do
-  loan_amount = set_amount
+  loan_amount = set_amount()
 
   puts "\n"
-  prompt("Please enter your interest rate:")
+  prompt("Please enter your Annual Percentage Rate.")
+  prompt("(Whole numbers and decimals are ok - don't include pecentage sign.)")
   prompt("(Example: Enter 5 for 5% or 3.25 for 3.25%)")
 
-  annual_percentage_rate = ''
-  loop do
-    annual_percentage_rate = gets.chomp
-
-    break if valid_interest_rate?(annual_percentage_rate)
-
-    prompt("Invalid entry. Enter the interest rate as a positive number.")
-  end
+  annual_percentage_rate = set_annual_percentage_rate()
 
   puts "\n"
   prompt("Please enter your loan term in years.")
