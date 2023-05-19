@@ -21,18 +21,6 @@ def valid_duration?(string)
   string.to_f.to_s == string && string.to_i > 0
 end
 
-# def read_duration(unit_of_time)
-#   prompt("Enter your length of your loan in #{unit_of_time}:")
-#   loop do
-#     duration = gets.chomp
-
-#     return duration if valid_int?(duration)
-
-#     prompt("Invalid entry. Enter the #{unit_of_time} as a positive number.")
-#     prompt("(Example: 18)")
-#   end
-# end
-
 system("clear")
 puts "\n-------------------------------------"
 prompt("Welcome to Mortgage Calculator!")
