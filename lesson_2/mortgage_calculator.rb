@@ -22,7 +22,7 @@ def spacer
 end
 
 def divider
- puts MESSAGES['divider']
+  puts MESSAGES['divider']
 end
 
 def print_message_no_prompt(key)
@@ -77,7 +77,6 @@ def get_annual_percentage_rate
   prompt('enter_apr')
   loop do
     annual_percentage_rate = gets.chomp
-    
     return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
 
     spacer
@@ -89,7 +88,6 @@ def get_loan_term
   prompt('enter_term')
   loop do
     term_in_years = gets.chomp
-    
     return term_in_years if valid_duration?(term_in_years)
 
     prompt('invalid_term')
@@ -97,7 +95,7 @@ def get_loan_term
 end
 
 def loan_summary(amount, interest, term)
-  puts <<~SUMMARY 
+  puts <<~SUMMARY
   => Based on a loan amount of $#{amount} at #{interest}% APR, 
      paid over #{term} years:
   SUMMARY
@@ -113,16 +111,11 @@ divider
 spacer
 
 loop do
-  loan_amount = get_amount()
-
+  loan_amount = get_amount
   spacer
-  
-  annual_percentage_rate = get_annual_percentage_rate()
-
+  annual_percentage_rate = get_annual_percentage_rate
   spacer
- 
   term_in_years = get_loan_term
-
   spacer
   prompt('calculating')
   sleep(1)
@@ -148,12 +141,10 @@ loop do
   spacer
 
   # format(return_message(key_from_yml), var_to_interpolate: local_var)
-  #in this case, we are formatting monthly payment to 2 decimal points
-  puts format(return_message('monthly_pmt'), 
-  payment: format('%.2f', monthly_payment))
+  # in this case, we are formatting monthly payment to 2 decimal points
+  puts format(return_message('monthly_pmt'), payment: format('%.2f', monthly_payment))
   
-  puts format(return_message('monthly_int'), 
-  interest: format('%.2f', monthly_percentage_rate)) + "%"
+  puts format(return_message('monthly_int'), interest: format('%.2f', monthly_percentage_rate)) + "%"
 
   puts format(return_message('loan_term_months'), months: term_in_months)
 
