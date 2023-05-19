@@ -29,6 +29,13 @@ def valid_duration?(string)
   (valid_int?(string) || valid_float?(string)) && string.to_f > 0
 end
 
+def loan_summary(amount, interest, term)
+  <<-SUMMARY 
+  With a loan amount of $#{amount} at #{interest}% APR, 
+    paid over #{term} years:
+  SUMMARY
+end
+
 system("clear")
 puts "\n-------------------------------------"
 prompt("Welcome to Mortgage Calculator!")
@@ -87,6 +94,8 @@ loop do
 
   puts "\n"
   prompt("Calculating your monthly payment...")
+  sleep(1)
+  system("clear")
 
   term_in_months = term_in_years.to_f * 12
   monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
@@ -96,10 +105,15 @@ loop do
                     (1 - (1 + monthly_int_rate)**(-term_in_months)))
 
   puts "\n"
-  prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}")
+  prompt(loan_summary(loan_amount, annual_percentage_rate, term_in_years))
 
   puts "\n"
-  prompt("Would you like to calculate another payment? (Y to calculate again):")
+  prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}.")
+  prompt("Your monthly interest rate is #{format('%.4f', monthly_int_rate)}%.")
+  prompt("Your loan term is #{term_in_months} months.")
+
+  puts "\n"
+  prompt("Would you like to calculate another loan? (Y to calculate again):")
   answer = gets.chomp.downcase
 
   if answer == 'y'
@@ -109,4 +123,5 @@ loop do
   end
 end
 
-prompt("Thank you for using Loan Calculator. Goodbye!")
+puts "\n"
+prompt("Thank you for using Mortgage Calculator. Goodbye!")
