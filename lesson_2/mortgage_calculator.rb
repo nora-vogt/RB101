@@ -17,8 +17,16 @@ def valid_dollar_amount?(string)
   /^\d+\.?\d?\d?$/.match(string) && string.to_f > 0
 end
 
+def valid_int?(string)
+  string.to_i.to_s == string
+end
+
+def valid_float?(string)
+  string.to_f.to_s == string
+end
+
 def valid_duration?(string)
-  string.to_f.to_s == string && string.to_i > 0
+  (valid_int?(string) || valid_float?(string)) && string.to_f > 0
 end
 
 system("clear")
@@ -62,7 +70,7 @@ loop do
   term_in_years = ''
   loop do
     term_in_years = gets.chomp.downcase
-
+    
     break if valid_duration?(term_in_years)
 
     prompt("Invalid loan term. Enter the years as a positive number.") 
@@ -85,6 +93,7 @@ loop do
   prompt("Would you like to calculate another payment? (Y to calculate again):")
   answer = gets.chomp.downcase
 
+  system("clear")
   break if answer != 'y'
 end
 
