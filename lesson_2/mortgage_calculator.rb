@@ -96,9 +96,9 @@ def get_loan_term
 end
 
 def loan_summary(amount, interest, term)
-  <<-SUMMARY 
-  Based on an amount of $#{amount} at #{interest}% APR, 
-    paid over #{term} years:
+  puts <<~SUMMARY 
+  => Based on a loan amount of $#{amount} at #{interest}% APR, 
+     paid over #{term} years:
   SUMMARY
 end
 
@@ -146,7 +146,7 @@ loop do
 
   spacer
 
-  prompt(loan_summary(loan_amount, annual_percentage_rate, term_in_years))
+  loan_summary(loan_amount, annual_percentage_rate, term_in_years)
 
   spacer
 
