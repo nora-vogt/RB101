@@ -13,8 +13,12 @@ $      at the end of the string
 (maximum of 2 decimal places is allowed)
 =end
 
+def greater_than_zero?(string)
+  string.to_f > 0
+end
+
 def valid_dollar_amount?(string)
-  /^\d+\.?\d?\d?$/.match(string) && string.to_f > 0
+  /^\d+\.?\d?\d?$/.match(string) && greater_than_zero?(string)
 end
 
 def valid_int?(string)
@@ -30,29 +34,30 @@ def valid_number?(string)
 end
 
 def valid_interest_rate?(string)
-  valid_number?(string) && string.to_f >= 0
+  valid_number?(string) && string.to_f >= 0.0
 end
 
 def valid_duration?(string)
-  valid_number?(string) && string.to_f > 0
+  valid_number?(string) && string.to_f > 0.0
 end
 
 def get_amount
   prompt("Please enter your loan amount:")
+  prompt("(Example: 100000 or 5000.50)")
   loop do
     amount = gets.chomp
 
     return amount if valid_dollar_amount?(amount)
 
-    prompt("Invalid amount. Enter your loan amount as a positive number.")
-    prompt("(Example: 100000 or 5000.50)")
+    prompt("Invalid amount. Amount must be a number greater than zero.")
+    prompt("Two decimal places are allowed.")
   end
 end
 
 def get_annual_percentage_rate
   loop do
     annual_percentage_rate = gets.chomp
-
+    
     return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
 
     prompt("Invalid entry. Enter the APR as a positive number.")
@@ -65,7 +70,8 @@ def get_loan_term
     
     return term_in_years if valid_duration?(term_in_years)
 
-    prompt("Invalid loan term. Enter the years as a positive number.")
+    prompt("Invalid loan term. Loan term must be at positive number.")
+    prompt("Loan term must be at least one year.")
   end
 end
 
@@ -81,7 +87,7 @@ puts "\n-------------------------------------"
 prompt("Welcome to Mortgage Calculator!")
 puts <<-INTRO
 
-  You can use this calculator to find your:
+  You can use this calculator to determine your:
     - Monthly payment amount
     - Loan term in months
     - Monthly interest rate
@@ -99,8 +105,7 @@ loop do
 
   puts "\n"
   prompt("Please enter your Annual Percentage Rate.")
-  prompt("(Don't include the pecentage sign.)")
-  prompt("(Example: Enter 5 for 5% or 3.25 for 3.25%)")
+  prompt("Example: 3.0 for 3% or 5.25 for 5.25%")
 
   annual_percentage_rate = get_annual_percentage_rate()
 
@@ -116,14 +121,16 @@ loop do
   system("clear")
 
   term_in_months = term_in_years.to_f * 12
-  monthly_int_rate = annual_percentage_rate.to_f / (12 * 100)
-  
-  if annual_percentage_rate.to_f == 0.0
+  annual_interest_rate = annual_percentage_rate.to_f / 100
+  monthly_interest_rate = annual_interest_rate / 12
+  monthly_percentage_rate = monthly_interest_rate * 100
+
+  if annual_interest_rate.zero?
     monthly_payment = loan_amount.to_f / term_in_months
   else
     monthly_payment = loan_amount.to_f *
-                      (monthly_int_rate /
-                      (1 - (1 + monthly_int_rate)**(-term_in_months)))
+                      (monthly_interest_rate /
+                      (1 - (1 + monthly_interest_rate)**(-term_in_months)))
   end
 
   puts "\n"
@@ -131,7 +138,7 @@ loop do
 
   puts "\n"
   prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}.")
-  prompt("Your monthly interest rate is #{format('%.2f', monthly_int_rate)}%.")
+  prompt("Your monthly interest rate is #{format('%.2f', monthly_percentage_rate)}%.")
   prompt("Your loan term is #{term_in_months} months.")
 
   puts "\n"
