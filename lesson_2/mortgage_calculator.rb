@@ -1,4 +1,3 @@
-require 'pry'
 require 'yaml'
 
 MESSAGES = YAML.load_file('mortgage_messages.yml')
@@ -6,16 +5,6 @@ MESSAGES = YAML.load_file('mortgage_messages.yml')
 def prompt(key)
   puts "=> #{MESSAGES[key]}"
 end
-
-=begin
-Regex for loan amount & interest rate validation:
-^\d+   string starts with one or more digits
-\.?    followed by zero or one period (decimal point)
-\d?    followed by zero or one digit
-\d?    followed by zero or one digit
-$      at the end of the string
-(maximum of 2 decimal places is allowed)
-=end
 
 def spacer
   puts MESSAGES['empty_line']
@@ -36,6 +25,15 @@ end
 def greater_than_zero?(string)
   string.to_f > 0.0
 end
+
+=begin
+Regex for loan amount validation:
+^\d+   string starts with one or more digits
+\.?    followed by zero or one period (decimal point)
+\d?    followed by zero or one digit
+\d?    followed by zero or one digit
+$      at the end of the string
+=end
 
 def valid_dollar_amount?(string)
   /^\d+\.?\d?\d?$/.match(string) && greater_than_zero?(string)
@@ -63,6 +61,7 @@ end
 
 def get_amount
   prompt('enter_loan')
+
   loop do
     amount = gets.chomp
 
@@ -75,9 +74,13 @@ end
 
 def get_annual_percentage_rate
   prompt('enter_apr')
+
   loop do
     annual_percentage_rate = gets.chomp
-    return annual_percentage_rate if valid_interest_rate?(annual_percentage_rate)
+
+    if valid_interest_rate?(annual_percentage_rate)
+      return annual_percentage_rate
+    end
 
     spacer
     prompt('invalid_apr')
@@ -86,10 +89,13 @@ end
 
 def get_loan_term
   prompt('enter_term')
+
   loop do
     term_in_years = gets.chomp
+
     return term_in_years if valid_duration?(term_in_years)
 
+    spacer
     prompt('invalid_term')
   end
 end
@@ -117,9 +123,10 @@ loop do
   spacer
   term_in_years = get_loan_term
   spacer
+
   prompt('calculating')
+
   sleep(1)
-  system("clear")
 
   term_in_months = term_in_years.to_f * 12
   annual_interest_rate = annual_percentage_rate.to_f / 100
@@ -139,17 +146,24 @@ loop do
   loan_summary(loan_amount, annual_percentage_rate, term_in_years)
 
   spacer
+  divider
 
-  # format(return_message(key_from_yml), var_to_interpolate: local_var)
-  # in this case, we are formatting monthly payment to 2 decimal points
-  puts format(return_message('monthly_pmt'), payment: format('%.2f', monthly_payment))
-  
-  puts format(return_message('monthly_int'), interest: format('%.2f', monthly_percentage_rate)) + "%"
+  # Interpolating data into YAML file messages:
+  # format(return_message(key), var_from_yml: data_to_interpolate)
+  puts format(return_message('monthly_pmt'),
+              payment: format('%.2f', monthly_payment))
 
-  puts format(return_message('loan_term_months'), months: term_in_months)
+  puts format(return_message('monthly_int'),
+              interest: format('%.2f', monthly_percentage_rate)) + "%"
 
+  puts format(return_message('loan_term_months'),
+              months: term_in_months)
+
+  divider
   spacer
+
   prompt('calculate_again')
+
   answer = gets.chomp.downcase
 
   if answer == 'y'
