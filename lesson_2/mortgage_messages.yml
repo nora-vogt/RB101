@@ -20,16 +20,16 @@ invalid_amount: |
     two decimal places are allowed. Try again:
 enter_apr: |
  Please enter your Annual Percentage Rate.
- Example: 3.0 for 3% or 5.25 for 5.25%
+ Example: 3 for 3% or 5.25 for 5.25%
 invalid_apr: "Invalid APR. Enter a positive number without a % sign:"
 enter_term: |
   Please enter your loan term in years.
   (Example: 10 for 10 years, 5.5 for 5 years, 6 months)
 invalid_term: |
-  Invalid loan term. Loan term must be at positive number.
-  Loan term must be at least one year.
+  Invalid loan term. Loan term must be a positive number,
+    at least 1 year.
 calculating: "Calculating your monthly payment..."
-monthly_pmt: "Your monthly payment is %{payment}."
+monthly_pmt: "Your monthly payment is $%{payment}."
 monthly_int: "Your monthly interest rate is %{interest}"
 loan_term_months: "Your loan term is %{months} months."
 calculate_again: "Would you like to calculate another loan? (Y to calculate again):"
