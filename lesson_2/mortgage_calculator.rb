@@ -163,7 +163,6 @@ loop do
   spacer
 
   prompt('calculate_again')
-
   answer = gets.chomp.downcase
 
   if answer == 'y'
