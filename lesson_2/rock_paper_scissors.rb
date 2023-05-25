@@ -1,13 +1,29 @@
-VALID_CHOICES = %w(rock paper scissors)
+VALID_CHOICES = %w(rock paper scissors lizard spock)
 
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def win?(first, second)
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'paper' && second == 'rock') ||
-    (first == 'scissors' && second == 'paper')
+# Rules:
+# Rock beats lizard - DONE
+# Rock beats scissors - DONE
+# Paper beats rock # DONE
+# Paper beats Spock - DONE
+# Scissors beats paper - DONE
+# Scissors beats lizard - DONE
+# Lizard beats Spock - DONE
+# Lizard beats paper - DONE
+# Spock beats scissors - DONE
+# Spock beats rock - DONE
+# extract win circumstances to array? 
+
+def win?(first_player, second_player)
+  (first_player == 'rock' && (second_player == 'scissors' ||
+    second_player == 'lizard')) ||
+    (first_player == 'paper' && (second_player == 'rock' || second_player == 'spock')) ||
+    (first_player == 'scissors' && (second_player == 'paper' || second_player == 'lizard')) ||
+    (first_player == 'lizard' && (second_player == 'spock' || second_player == 'paper')) ||
+    (first_player == 'spock' && (second_player == 'scissors' || second_player == 'rock')) 
 end
 
 def display_results(player, computer)
@@ -24,7 +40,7 @@ loop do
   choice = ''
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    choice = Kernel.gets().chomp()
+    choice = gets.chomp.downcase
 
     if VALID_CHOICES.include?(choice)
       break
