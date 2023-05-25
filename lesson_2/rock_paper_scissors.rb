@@ -1,4 +1,9 @@
 VALID_CHOICES = %w(Rock Paper Scissors Lizard Spock)
+LOSES_TO_ROCK = %w(Scissors Lizard)
+LOSES_TO_PAPER = %w(Rock Spock)
+LOSES_TO_SCISSORS = %w(Paper Lizard)
+LOSES_TO_LIZARD = %w(Spock Paper)
+LOSES_TO_SPOCK = %w(Scissors Rock)
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -18,12 +23,11 @@ end
 # extract win circumstances to array? 
 
 def win?(first_player, second_player)
-  (first_player == 'Rock' && (second_player == 'Scissors' ||
-    second_player == 'Lizard')) ||
-    (first_player == 'Paper' && (second_player == 'Rock' || second_player == 'Spock')) ||
-    (first_player == 'Scissors' && (second_player == 'Paper' || second_player == 'Lizard')) ||
-    (first_player == 'Lizard' && (second_player == 'Spock' || second_player == 'Paper')) ||
-    (first_player == 'Spock' && (second_player == 'Scissors' || second_player == 'Rock')) 
+  (first_player == 'Rock' && LOSES_TO_ROCK.include?(second_player)) ||
+    (first_player == 'Paper' && LOSES_TO_PAPER.include?(second_player)) ||
+    (first_player == 'Scissors' && LOSES_TO_SCISSORS.include?(second_player)) ||
+    (first_player == 'Lizard' && LOSES_TO_LIZARD.include?(second_player)) ||
+    (first_player == 'Spock' && LOSES_TO_SPOCK.include?(second_player))
 end
 
 def display_results(player, computer)
