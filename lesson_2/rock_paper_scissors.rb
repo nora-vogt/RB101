@@ -1,29 +1,29 @@
-VALID_CHOICES = %w(rock paper scissors lizard spock)
+VALID_CHOICES = %w(Rock Paper Scissors Lizard Spock)
 
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
 # Rules:
-# Rock beats lizard - DONE
-# Rock beats scissors - DONE
-# Paper beats rock # DONE
+# Rock beats Lizard - DONE
+# Rock beats Scissors - DONE
+# Paper beats Rock # DONE
 # Paper beats Spock - DONE
-# Scissors beats paper - DONE
-# Scissors beats lizard - DONE
+# Scissors beats Paper - DONE
+# Scissors beats Lizard - DONE
 # Lizard beats Spock - DONE
-# Lizard beats paper - DONE
-# Spock beats scissors - DONE
-# Spock beats rock - DONE
+# Lizard beats Paper - DONE
+# Spock beats Scissors - DONE
+# Spock beats Rock - DONE
 # extract win circumstances to array? 
 
 def win?(first_player, second_player)
-  (first_player == 'rock' && (second_player == 'scissors' ||
-    second_player == 'lizard')) ||
-    (first_player == 'paper' && (second_player == 'rock' || second_player == 'spock')) ||
-    (first_player == 'scissors' && (second_player == 'paper' || second_player == 'lizard')) ||
-    (first_player == 'lizard' && (second_player == 'spock' || second_player == 'paper')) ||
-    (first_player == 'spock' && (second_player == 'scissors' || second_player == 'rock')) 
+  (first_player == 'Rock' && (second_player == 'Scissors' ||
+    second_player == 'Lizard')) ||
+    (first_player == 'Paper' && (second_player == 'Rock' || second_player == 'Spock')) ||
+    (first_player == 'Scissors' && (second_player == 'Paper' || second_player == 'Lizard')) ||
+    (first_player == 'Lizard' && (second_player == 'Spock' || second_player == 'Paper')) ||
+    (first_player == 'Spock' && (second_player == 'Scissors' || second_player == 'Rock')) 
 end
 
 def display_results(player, computer)
@@ -40,7 +40,7 @@ loop do
   choice = ''
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    choice = gets.chomp.downcase
+    choice = gets.chomp.capitalize
 
     if VALID_CHOICES.include?(choice)
       break
@@ -56,7 +56,7 @@ loop do
   display_results(choice, computer)
 
   prompt("Do you want to play again?")
-  answer = Kernel.gets().chomp()
+  answer = gets.chomp
   break unless answer.downcase().start_with?('y')
 end
 
