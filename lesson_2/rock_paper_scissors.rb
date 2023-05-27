@@ -1,3 +1,5 @@
+require 'pry'
+
 VALID_CHOICES = %w(Rock Paper Scissors Lizard Spock)
 LOSES_TO_ROCK = %w(Scissors Lizard)
 LOSES_TO_PAPER = %w(Rock Spock)
@@ -20,7 +22,6 @@ end
 # Lizard beats Paper - DONE
 # Spock beats Scissors - DONE
 # Spock beats Rock - DONE
-# extract win circumstances to array? 
 
 def win?(first_player, second_player)
   (first_player == 'Rock' && LOSES_TO_ROCK.include?(second_player)) ||
@@ -45,7 +46,7 @@ loop do
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     choice = gets.chomp.capitalize
-
+ 
     if VALID_CHOICES.include?(choice)
       break
     else
