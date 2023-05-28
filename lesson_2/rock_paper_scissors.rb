@@ -58,7 +58,7 @@ def win_round?(first_player, second_player)
     (first_player == 'spock' && LOSES_TO_SPOCK.include?(second_player))
 end
 
-def display_results(player, computer)
+def print_results(player, computer)
   if win_round?(player, computer)
     prompt('player_won')
   elsif win_round?(computer, player)
@@ -118,7 +118,7 @@ loop do
   player_score = set_score(choice, computer, player_score)
   computer_score = set_score(computer, choice, computer_score)
 
-  display_results(choice, computer)
+  print_results(choice, computer)
   print_formatted_message('score', 
                           player_points: player_score, 
                           computer_points: computer_score)
