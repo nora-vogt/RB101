@@ -1,7 +1,7 @@
 require 'pry'
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
-ABBREVIATIONS = []
+ABBREVIATIONS = %w[r p sc l sp]
 LOSES_TO_ROCK = %w(scissors lizard)
 LOSES_TO_PAPER = %w(rock spock)
 LOSES_TO_SCISSORS = %w(paper lizard)
@@ -48,10 +48,14 @@ end
 loop do
   choice = ''
   loop do
+    # make this a longer string, with map? to display, "Rock" (from array) (or enter 'r')
     prompt("Choose one: #{VALID_CHOICES.map(&:capitalize).join(', ')}")
     choice = gets.chomp.downcase
     
     if VALID_CHOICES.include?(choice)
+      break
+    elsif ABBREVIATIONS.include?(choice)
+      choice = VALID_CHOICES.select { |str| str.start_with?(choice) }.join
       break
     else
       prompt("That's not a valid choice.")
