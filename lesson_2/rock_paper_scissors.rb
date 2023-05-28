@@ -2,6 +2,7 @@ require 'pry'
 require 'yaml'
 
 MESSAGES = YAML.load_file('rps_messages.yml')
+
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 ABBREVIATIONS = %w[r p sc l sp]
 LOSES_TO_ROCK = %w(scissors lizard)
@@ -17,18 +18,6 @@ end
 def prompt(key)
   puts("=> #{message(key)}")
 end
-
-# Rules:
-# rock beats lizard - DONE
-# rock beats scissors - DONE
-# paper beats rock # DONE
-# paper beats spock - DONE
-# scissors beats paper - DONE
-# scissors beats lizard - DONE
-# lizard beats spock - DONE
-# lizard beats paper - DONE
-# spock beats scissors - DONE
-# spock beats rock - DONE
 
 def win_round?(first_player, second_player)
   (first_player == 'rock' && LOSES_TO_ROCK.include?(second_player)) ||
