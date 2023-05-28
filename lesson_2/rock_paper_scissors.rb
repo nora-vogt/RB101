@@ -30,7 +30,7 @@ end
 # spock beats scissors - DONE
 # spock beats rock - DONE
 
-def win_match?(first_player, second_player)
+def win_round?(first_player, second_player)
   (first_player == 'rock' && LOSES_TO_ROCK.include?(second_player)) ||
     (first_player == 'paper' && LOSES_TO_PAPER.include?(second_player)) ||
     (first_player == 'scissors' && LOSES_TO_SCISSORS.include?(second_player)) ||
@@ -39,9 +39,9 @@ def win_match?(first_player, second_player)
 end
 
 def display_results(player, computer)
-  if win_match?(player, computer)
+  if win_round?(player, computer)
     prompt('player_won')
-  elsif win_match?(computer, player)
+  elsif win_round?(computer, player)
     prompt('computer_won')
   else
     prompt('tie')
@@ -49,23 +49,21 @@ def display_results(player, computer)
 end
 
 def set_score(first_player, second_player, score)
-  if win_match?(first_player, second_player)
+  if win_round?(first_player, second_player)
     score += 1
   else
     score
   end
 end
 
-
-
 prompt('welcome')
-number_of_matches = 1
+number_of_rounds = 1
 player_score = 0
 computer_score = 0
 loop do
   choice = ''
   loop do
-    puts format(message('match_number'), number: number_of_matches)
+    puts format(message('match_number'), number: number_of_rounds)
     prompt('make_choice')
     choice = gets.chomp.downcase
     
@@ -89,7 +87,7 @@ loop do
   display_results(choice, computer)
   puts format(message('score'), player_points: player_score, computer_points: computer_score)
 
-  number_of_matches += 1
+  number_of_rounds += 1
 
   prompt('again?')
   answer = gets.chomp
