@@ -1,34 +1,35 @@
 require 'pry'
 
-VALID_CHOICES = %w(Rock Paper Scissors Lizard Spock)
-LOSES_TO_ROCK = %w(Scissors Lizard)
-LOSES_TO_PAPER = %w(Rock Spock)
-LOSES_TO_SCISSORS = %w(Paper Lizard)
-LOSES_TO_LIZARD = %w(Spock Paper)
-LOSES_TO_SPOCK = %w(Scissors Rock)
+VALID_CHOICES = %w(rock paper scissors lizard spock)
+ABBREVIATIONS = []
+LOSES_TO_ROCK = %w(scissors lizard)
+LOSES_TO_PAPER = %w(rock spock)
+LOSES_TO_SCISSORS = %w(paper lizard)
+LOSES_TO_LIZARD = %w(spock paper)
+LOSES_TO_SPOCK = %w(scissors rock)
 
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
 # Rules:
-# Rock beats Lizard - DONE
-# Rock beats Scissors - DONE
-# Paper beats Rock # DONE
-# Paper beats Spock - DONE
-# Scissors beats Paper - DONE
-# Scissors beats Lizard - DONE
-# Lizard beats Spock - DONE
-# Lizard beats Paper - DONE
-# Spock beats Scissors - DONE
-# Spock beats Rock - DONE
+# rock beats lizard - DONE
+# rock beats scissors - DONE
+# paper beats rock # DONE
+# paper beats spock - DONE
+# scissors beats paper - DONE
+# scissors beats lizard - DONE
+# lizard beats spock - DONE
+# lizard beats paper - DONE
+# spock beats scissors - DONE
+# spock beats rock - DONE
 
 def win?(first_player, second_player)
-  (first_player == 'Rock' && LOSES_TO_ROCK.include?(second_player)) ||
-    (first_player == 'Paper' && LOSES_TO_PAPER.include?(second_player)) ||
-    (first_player == 'Scissors' && LOSES_TO_SCISSORS.include?(second_player)) ||
-    (first_player == 'Lizard' && LOSES_TO_LIZARD.include?(second_player)) ||
-    (first_player == 'Spock' && LOSES_TO_SPOCK.include?(second_player))
+  (first_player == 'rock' && LOSES_TO_ROCK.include?(second_player)) ||
+    (first_player == 'paper' && LOSES_TO_PAPER.include?(second_player)) ||
+    (first_player == 'scissors' && LOSES_TO_SCISSORS.include?(second_player)) ||
+    (first_player == 'lizard' && LOSES_TO_LIZARD.include?(second_player)) ||
+    (first_player == 'spock' && LOSES_TO_SPOCK.include?(second_player))
 end
 
 def display_results(player, computer)
@@ -41,12 +42,15 @@ def display_results(player, computer)
   end
 end
 
+# Allow use to just type first letter: (or first two letters for spock or scissors?)
+# check if the first letter or two letters of any string in VALID_CHOICES matches the entered character?
+
 loop do
   choice = ''
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    choice = gets.chomp.capitalize
- 
+    prompt("Choose one: #{VALID_CHOICES.map(&:capitalize).join(', ')}")
+    choice = gets.chomp.downcase
+    
     if VALID_CHOICES.include?(choice)
       break
     else
@@ -56,7 +60,7 @@ loop do
 
   computer = VALID_CHOICES.sample
 
-  prompt("You chose: #{choice}; Computer chose: #{computer}")
+  prompt("You chose: #{choice.capitalize}; Computer chose: #{computer.capitalize}")
 
   display_results(choice, computer)
 
