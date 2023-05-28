@@ -1,5 +1,7 @@
 require 'pry'
+require 'yaml'
 
+MESSAGES = YAML.load_file('rps_messages.yml')
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 ABBREVIATIONS = %w[r p sc l sp]
 LOSES_TO_ROCK = %w(scissors lizard)
@@ -8,8 +10,8 @@ LOSES_TO_SCISSORS = %w(paper lizard)
 LOSES_TO_LIZARD = %w(spock paper)
 LOSES_TO_SPOCK = %w(scissors rock)
 
-def prompt(message)
-  Kernel.puts("=> #{message}")
+def prompt(key)
+  Kernel.puts("=> #{MESSAGES[key]}")
 end
 
 # Rules:
@@ -34,22 +36,19 @@ end
 
 def display_results(player, computer)
   if win?(player, computer)
-    prompt("You won!")
+    prompt('player_won')
   elsif win?(computer, player)
-    prompt("Computer won!")
+    prompt('computer_won')
   else
-    prompt("It's a tie!")
+    prompt('tie')
   end
 end
 
-# Allow use to just type first letter: (or first two letters for spock or scissors?)
-# check if the first letter or two letters of any string in VALID_CHOICES matches the entered character?
-
+prompt('welcome')
 loop do
   choice = ''
   loop do
-    # make this a longer string, with map? to display, "Rock" (from array) (or enter 'r')
-    prompt("Choose one: #{VALID_CHOICES.map(&:capitalize).join(', ')}")
+    prompt('make_choice')
     choice = gets.chomp.downcase
     
     if VALID_CHOICES.include?(choice)
@@ -58,19 +57,19 @@ loop do
       choice = VALID_CHOICES.select { |str| str.start_with?(choice) }.join
       break
     else
-      prompt("That's not a valid choice.")
+      prompt('invalid_choice')
     end
   end
 
   computer = VALID_CHOICES.sample
 
-  prompt("You chose: #{choice.capitalize}; Computer chose: #{computer.capitalize}")
+  puts format(MESSAGES['display_choices'], player_choice: choice.capitalize, computer_choice: computer.capitalize)
 
   display_results(choice, computer)
 
-  prompt("Do you want to play again?")
+  prompt('again?')
   answer = gets.chomp
-  break unless answer.downcase().start_with?('y')
+  break unless answer.downcase == 'y'
 end
 
-prompt("Thank you for playing. Goodbye!")
+prompt('goodbye')

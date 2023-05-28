@@ -1,0 +1,16 @@
+---
+welcome: "Welcome to Rock Paper Scissors (Lizard Spock)!"
+make_choice: |
+  Choose your move:
+    - rock (or enter 'r')
+    - paper (or enter 'p')
+    - scissors (or enter 'sc')
+    - lizard (or enter 'l')
+    - Spock (or enter 'sp')
+invalid_choice: "That's not a valid choice."
+display_choices: "You chose: %{player_choice}; Computer chose: %{computer_choice}"
+player_won: "You won!"
+computer_won: "Computer won!"
+tie: "It's a tie!"
+again?: "Do you want to play again? ('Y' to play again)"
+goodbye: "Thank you for playing. Goodbye!"
