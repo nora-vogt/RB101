@@ -56,11 +56,26 @@ def set_score(first_player, second_player, score)
   end
 end
 
+def win_game?(player_score, computer_score)
+  (player_score == 3 || computer_score == 3) ? true : false
+end
+
+def display_grand_winner(player, computer)
+end
+
+def play_again?
+  prompt('again?')
+  answer = gets.chomp.downcase
+
+  answer == 'y'
+end
+
 prompt('welcome')
 number_of_rounds = 1
 player_score = 0
 computer_score = 0
 loop do
+  grand_winner = ''
   choice = ''
   loop do
     puts format(message('match_number'), number: number_of_rounds)
@@ -89,9 +104,7 @@ loop do
 
   number_of_rounds += 1
 
-  prompt('again?')
-  answer = gets.chomp
-  break unless answer.downcase == 'y'
+  break unless play_again?
 end
 
 prompt('goodbye')
