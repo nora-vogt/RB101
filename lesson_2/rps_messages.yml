@@ -12,6 +12,10 @@ invalid_choice: "That's not a valid choice."
 display_choices: "You chose: %{player_choice}; Computer chose: %{computer_choice}"
 player_won: "You won!"
 computer_won: "Computer won!"
-tie: "It's a tie!"
+tie: "It's a tie! No points are awarded."
+score: |
+  The score is: 
+    - You: %{player_points}
+    - Computer: %{computer_points}
 again?: "Do you want to play again? ('Y' to play again)"
 goodbye: "Thank you for playing. Goodbye!"

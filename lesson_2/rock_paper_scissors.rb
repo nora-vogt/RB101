@@ -48,8 +48,18 @@ def display_results(player, computer)
   end
 end
 
+def set_score(first_player, second_player, score)
+  if win?(first_player, second_player)
+    score += 1
+  else
+    score
+  end
+end
+
 prompt('welcome')
 number_of_matches = 1
+player_score = 0
+computer_score = 0
 loop do
   choice = ''
   loop do
@@ -71,7 +81,11 @@ loop do
 
   puts format(message('display_choices'), player_choice: choice.capitalize, computer_choice: computer.capitalize)
 
+  player_score = set_score(choice, computer, player_score)
+  computer_score = set_score(computer, choice, computer_score)
+
   display_results(choice, computer)
+  puts format(message('score'), player_points: player_score, computer_points: computer_score)
 
   number_of_matches += 1
 
