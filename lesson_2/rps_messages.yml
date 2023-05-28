@@ -10,12 +10,15 @@ make_choice: |
     - Spock (or enter 'sp')
 invalid_choice: "That's not a valid choice."
 display_choices: "You chose: %{player_choice}; Computer chose: %{computer_choice}"
-player_won: "You won!"
-computer_won: "Computer won!"
+player_won: "You won this round!"
+computer_won: "Computer won this round."
 tie: "It's a tie! No points are awarded."
 score: |
   The score is: 
     - You: %{player_points}
     - Computer: %{computer_points}
+game_over: "Game over! 3 points has been reached."
+player_grand_winner: "You are the grand winner! Congratulations!"
+computer_grand_winner: "Computer is the grand winner! Good game!"
 again?: "Do you want to play again? ('Y' to play again)"
 goodbye: "Thank you for playing. Goodbye!"

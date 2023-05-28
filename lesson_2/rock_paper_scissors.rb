@@ -56,11 +56,16 @@ def set_score(first_player, second_player, score)
   end
 end
 
-def win_game?(player_score, computer_score)
-  (player_score == 3 || computer_score == 3) ? true : false
+def game_won?(player_score, computer_score)
+  player_score == 3 || computer_score == 3
 end
 
-def display_grand_winner(player, computer)
+def display_grand_winner(player_score, computer_score)
+  if player_score == 3
+    prompt('player_grand_winner')
+  elsif computer_score == 3
+    prompt('computer_grand_winner')
+  end
 end
 
 def play_again?
@@ -75,7 +80,6 @@ number_of_rounds = 1
 player_score = 0
 computer_score = 0
 loop do
-  grand_winner = ''
   choice = ''
   loop do
     puts format(message('match_number'), number: number_of_rounds)
@@ -104,7 +108,13 @@ loop do
 
   number_of_rounds += 1
 
-  break unless play_again?
+  if game_won?(player_score, computer_score)
+    prompt('game_over')
+    display_grand_winner(player_score, computer_score)
+    break unless play_again?
+  else
+    next
+  end
 end
 
 prompt('goodbye')
