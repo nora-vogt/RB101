@@ -30,7 +30,7 @@ end
 # spock beats scissors - DONE
 # spock beats rock - DONE
 
-def win?(first_player, second_player)
+def win_match?(first_player, second_player)
   (first_player == 'rock' && LOSES_TO_ROCK.include?(second_player)) ||
     (first_player == 'paper' && LOSES_TO_PAPER.include?(second_player)) ||
     (first_player == 'scissors' && LOSES_TO_SCISSORS.include?(second_player)) ||
@@ -39,9 +39,9 @@ def win?(first_player, second_player)
 end
 
 def display_results(player, computer)
-  if win?(player, computer)
+  if win_match?(player, computer)
     prompt('player_won')
-  elsif win?(computer, player)
+  elsif win_match?(computer, player)
     prompt('computer_won')
   else
     prompt('tie')
@@ -49,12 +49,14 @@ def display_results(player, computer)
 end
 
 def set_score(first_player, second_player, score)
-  if win?(first_player, second_player)
+  if win_match?(first_player, second_player)
     score += 1
   else
     score
   end
 end
+
+
 
 prompt('welcome')
 number_of_matches = 1
