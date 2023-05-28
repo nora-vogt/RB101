@@ -10,8 +10,12 @@ LOSES_TO_SCISSORS = %w(paper lizard)
 LOSES_TO_LIZARD = %w(spock paper)
 LOSES_TO_SPOCK = %w(scissors rock)
 
+def message(key)
+  MESSAGES[key]
+end
+
 def prompt(key)
-  Kernel.puts("=> #{MESSAGES[key]}")
+  puts("=> #{message(key)}")
 end
 
 # Rules:
@@ -45,9 +49,11 @@ def display_results(player, computer)
 end
 
 prompt('welcome')
+number_of_matches = 1
 loop do
   choice = ''
   loop do
+    puts format(message('match_number'), number: number_of_matches)
     prompt('make_choice')
     choice = gets.chomp.downcase
     
@@ -63,9 +69,11 @@ loop do
 
   computer = VALID_CHOICES.sample
 
-  puts format(MESSAGES['display_choices'], player_choice: choice.capitalize, computer_choice: computer.capitalize)
+  puts format(message('display_choices'), player_choice: choice.capitalize, computer_choice: computer.capitalize)
 
   display_results(choice, computer)
+
+  number_of_matches += 1
 
   prompt('again?')
   answer = gets.chomp
