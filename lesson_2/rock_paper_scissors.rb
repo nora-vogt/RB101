@@ -128,9 +128,8 @@ loop do
   if game_won?(player_score, computer_score)
     prompt('game_over')
     display_grand_winner(player_score, computer_score)
+    number_of_rounds = 1
     break unless play_again?
-  else
-    next
   end
 end
 
