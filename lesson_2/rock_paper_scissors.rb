@@ -23,6 +23,14 @@ def spacer
   puts MESSAGES['spacer']
 end
 
+def format_message(key, data_to_interpolate = {})
+  format(message(key), data_to_interpolate)
+end
+
+def print_formatted_message(key, data_to_interpolate = {})
+  puts format_message(key, data_to_interpolate)
+end
+
 def prompt(key)
   puts("=> #{message(key)}")
 end
@@ -98,18 +106,22 @@ number_of_rounds = 1
 player_score = 0
 computer_score = 0
 loop do
-  puts format(message('match_number'), number: number_of_rounds)
+  print_formatted_message('match_number', number: number_of_rounds)
 
   choice = get_choice
   computer = VALID_CHOICES.sample
 
-  puts format(message('display_choices'), player_choice: choice.capitalize, computer_choice: computer.capitalize)
+  print_formatted_message('display_choices', 
+                          player_choice: choice.capitalize, 
+                          computer_choice: computer.capitalize)
 
   player_score = set_score(choice, computer, player_score)
   computer_score = set_score(computer, choice, computer_score)
 
   display_results(choice, computer)
-  puts format(message('score'), player_points: player_score, computer_points: computer_score)
+  print_formatted_message('score', 
+                          player_points: player_score, 
+                          computer_points: computer_score)
 
   number_of_rounds += 1
 
