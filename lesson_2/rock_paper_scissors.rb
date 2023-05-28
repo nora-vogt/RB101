@@ -27,6 +27,21 @@ def prompt(key)
   puts("=> #{message(key)}")
 end
 
+def get_choice
+  loop do
+    prompt('make_choice')
+    choice = gets.chomp.downcase
+    
+    if VALID_CHOICES.include?(choice)
+      return choice
+    elsif ABBREVIATIONS.include?(choice)
+      return VALID_CHOICES.select { |str| str.start_with?(choice) }.join
+    else
+      prompt('invalid_choice')
+    end
+  end
+end
+
 def win_round?(first_player, second_player)
   (first_player == 'rock' && LOSES_TO_ROCK.include?(second_player)) ||
     (first_player == 'paper' && LOSES_TO_PAPER.include?(second_player)) ||
@@ -83,22 +98,9 @@ number_of_rounds = 1
 player_score = 0
 computer_score = 0
 loop do
-  choice = ''
-  loop do # try extracting this loop to set_choice in some way?
-    puts format(message('match_number'), number: number_of_rounds)
-    prompt('make_choice')
-    choice = gets.chomp.downcase
-    
-    if VALID_CHOICES.include?(choice)
-      break
-    elsif ABBREVIATIONS.include?(choice)
-      choice = VALID_CHOICES.select { |str| str.start_with?(choice) }.join
-      break
-    else
-      prompt('invalid_choice')
-    end
-  end
+  puts format(message('match_number'), number: number_of_rounds)
 
+  choice = get_choice
   computer = VALID_CHOICES.sample
 
   puts format(message('display_choices'), player_choice: choice.capitalize, computer_choice: computer.capitalize)
