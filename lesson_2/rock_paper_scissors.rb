@@ -15,6 +15,14 @@ def message(key)
   MESSAGES[key]
 end
 
+def divider
+  puts MESSAGES['divider']
+end
+
+def spacer
+  puts MESSAGES['spacer']
+end
+
 def prompt(key)
   puts("=> #{message(key)}")
 end
@@ -64,14 +72,19 @@ def play_again?
   answer == 'y'
 end
 
+divider
 prompt('welcome')
+divider
+spacer
+prompt('intro')
+spacer
 
 number_of_rounds = 1
 player_score = 0
 computer_score = 0
 loop do
   choice = ''
-  loop do
+  loop do # try extracting this loop to set_choice in some way?
     puts format(message('match_number'), number: number_of_rounds)
     prompt('make_choice')
     choice = gets.chomp.downcase

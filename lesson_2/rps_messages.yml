@@ -1,13 +1,28 @@
 ---
-welcome: "Welcome to Rock Paper Scissors (Lizard Spock)!"
-match_number: "Game: %{number}"
+divider: "**************************"
+spacer: "\n"
+welcome: "Welcome to Rock Paper Scissors Spock Lizard!"
+intro: |
+  In this game, you will play against the computer.
+  All you need to do is enter your chosen move.
+  The first player to win three rounds wins the match!
+
+  The rules are as follows:
+    - Scissors cuts Paper - Paper covers Rock
+    - Rock crushes Lizard - Lizard poisons Spock
+    - Spock smashes Scissors - Scissors decapitates Lizard
+    - Lizard eats Paper - Paper disproves Spock
+    - Spock vaporizes Rock - Rock crushes Scissors
+
+  Good luck!
+match_number: "* Round %{number} *"
 make_choice: |
   Choose your move:
     - rock (or enter 'r')
     - paper (or enter 'p')
     - scissors (or enter 'sc')
-    - lizard (or enter 'l')
     - Spock (or enter 'sp')
+    - lizard (or enter 'l')
 invalid_choice: "That's not a valid choice."
 display_choices: "You chose: %{player_choice}; Computer chose: %{computer_choice}"
 player_won: "You won this round!"
