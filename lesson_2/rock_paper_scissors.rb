@@ -4,7 +4,7 @@ require 'yaml'
 MESSAGES = YAML.load_file('rps_messages.yml')
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
-ABBREVIATIONS = %w[r p sc sp l]
+VALID_ABBREVIATIONS = %w[r p sc sp l]
 WIN_COMBINATIONS = { 'rock' => ['scissors', 'lizard'],
                      'paper' => ['rock', 'spock'],
                      'scissors' => ['paper', 'lizard'],
@@ -62,7 +62,7 @@ def get_choice
 
     if VALID_CHOICES.include?(choice)
       return choice
-    elsif ABBREVIATIONS.include?(choice)
+    elsif VALID_ABBREVIATIONS.include?(choice)
       return VALID_CHOICES.select { |str| str.start_with?(choice) }.join
     else
       spacer
