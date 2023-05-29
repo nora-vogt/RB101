@@ -1,4 +1,3 @@
-require 'pry'
 require 'yaml'
 
 MESSAGES = YAML.load_file('rps_messages.yml')
