@@ -59,7 +59,7 @@ def get_choice
   loop do
     prompt('make_choice')
     choice = gets.chomp.downcase
-    
+
     if VALID_CHOICES.include?(choice)
       return choice
     elsif ABBREVIATIONS.include?(choice)
