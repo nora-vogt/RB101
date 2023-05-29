@@ -4,10 +4,12 @@ spacer: "\n"
 welcome: "Welcome to Rock Paper Scissors Spock Lizard!"
 intro: |
   In this game, you will play against the computer.
-  All you need to do is enter your chosen move.
+  Your goal is to choose a move that beats the computer's move.
+  To play, all you need to do is enter your move when prompted.
+
   The first player to win three rounds wins the match!
 
-  The rules are as follows:
+  The rules to win are as follows:
     - Scissors cuts Paper - Paper covers Rock
     - Rock crushes Lizard - Lizard poisons Spock
     - Spock smashes Scissors - Scissors decapitates Lizard
@@ -15,7 +17,11 @@ intro: |
     - Spock vaporizes Rock - Rock crushes Scissors
 
   Good luck!
-match_number: "* Round %{number} *"
+start_game: "Enter 'Y' when you're ready to start the game:"
+invalid_game_start: "Invalid entry. Enter 'Y' to start the game:"
+start_round: "Enter 'Y' when you're ready to start Round %{number}:"
+invalid_round_start: "Invalid entry. Enter 'Y' to start the next round:"
+round_number: "*** Round %{number} ***"
 make_choice: |
   Choose your move:
     - rock (or enter 'r')
@@ -26,7 +32,7 @@ make_choice: |
 invalid_choice: "That's not a valid choice."
 display_choices: "You chose: %{player_choice}; Computer chose: %{computer_choice}"
 player_won: "You won this round!"
-computer_won: "Computer won this round."
+computer_won: "Computer won this round!"
 tie: "It's a tie! No points are awarded."
 score: |
   The score is: 
@@ -36,4 +42,4 @@ game_over: "Game over! 3 points has been reached."
 player_grand_winner: "You are the grand winner! Congratulations!"
 computer_grand_winner: "Computer is the grand winner! Good game!"
 again?: "Do you want to play again? ('Y' to play again)"
-goodbye: "Thank you for playing. Goodbye!"
+goodbye: "Thank you for playing. Live long and prosper!"
