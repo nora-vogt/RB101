@@ -137,8 +137,8 @@ loop do
   computer = VALID_CHOICES.sample
 
   spacer
-  print_formatted_message('display_choices', 
-                          player_choice: choice.capitalize, 
+  print_formatted_message('display_choices',
+                          player_choice: choice.capitalize,
                           computer_choice: computer.capitalize)
 
   player_score = set_score(choice, computer, player_score)
@@ -146,8 +146,8 @@ loop do
 
   print_results(choice, computer)
   spacer
-  print_formatted_message('score', 
-                          player_points: player_score, 
+  print_formatted_message('score',
+                          player_points: player_score,
                           computer_points: computer_score)
   spacer
 
