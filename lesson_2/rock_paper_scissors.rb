@@ -86,7 +86,7 @@ end
 
 def set_score(first_player, second_player, score)
   if win_round?(first_player, second_player)
-    score += 1
+    score + 1
   else
     score
   end
