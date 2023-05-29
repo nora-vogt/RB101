@@ -5,11 +5,11 @@ MESSAGES = YAML.load_file('rps_messages.yml')
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 ABBREVIATIONS = %w[r p sc sp l]
-LOSES_TO_ROCK = %w(scissors lizard)
-LOSES_TO_PAPER = %w(rock spock)
-LOSES_TO_SCISSORS = %w(paper lizard)
-LOSES_TO_LIZARD = %w(spock paper)
-LOSES_TO_SPOCK = %w(scissors rock)
+WIN_COMBINATIONS = { 'rock' => ['scissors', 'lizard'],
+                     'paper' => ['rock', 'spock'],
+                     'scissors' => ['paper', 'lizard'],
+                     'lizard' => ['spock', 'paper'],
+                     'spock' => ['scissors', 'rock'] }
 
 def message(key)
   MESSAGES[key]
@@ -72,11 +72,7 @@ def get_choice
 end
 
 def win_round?(first_player, second_player)
-  (first_player == 'rock' && LOSES_TO_ROCK.include?(second_player)) ||
-    (first_player == 'paper' && LOSES_TO_PAPER.include?(second_player)) ||
-    (first_player == 'scissors' && LOSES_TO_SCISSORS.include?(second_player)) ||
-    (first_player == 'lizard' && LOSES_TO_LIZARD.include?(second_player)) ||
-    (first_player == 'spock' && LOSES_TO_SPOCK.include?(second_player))
+  WIN_COMBINATIONS[first_player].include?(second_player)
 end
 
 def print_results(player, computer)
@@ -112,10 +108,10 @@ end
 def play_again?
   prompt('again?')
   answer = gets.chomp.downcase
-
   answer == 'y'
 end
 
+system('clear')
 divider
 prompt('welcome')
 divider
@@ -123,6 +119,7 @@ divider
 spacer
 prompt('intro')
 spacer
+
 start_game?
 system('clear')
 
