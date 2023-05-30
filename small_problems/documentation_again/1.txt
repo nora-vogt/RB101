@@ -1,0 +1,16 @@
+docs.ruby-lang.org > English > API documentation for Ruby 2.7.0 > Class and Module Index > File
+
+File::path is a class method that returns the string representation of the path
+path(path) -> string
+File.path("/dev/null")          #=> "/dev/null"
+File.path(Pathname.new("/tmp")) #=> "/tmp"
+
+Class methods are called on the class.
+
+
+File#path is an instance method - returns the pathname used to create file as a string. 
+
+File.new("testfile").path               #=> "testfile"
+File.new("/tmp/../tmp/xxx", "w").path   #=> "/tmp/../tmp/xxx"
+
+Instance methods are called on objects.
