@@ -1,9 +1,12 @@
 def print_in_box(string)
-  puts "+" + '-' * (string.length + 2) + "+"
-  puts "|#{' ' * (string.length + 2)}|"
-  puts "| #{string.center(string.length)} |"
-  puts "|#{' ' * (string.length + 2)}|"
-  puts "+" + '-' * (string.length + 2) + "+"
+  horizontal_line = "+#{'-' * (string.length + 2)}+"
+  spacer_line = "|#{' ' * (string.length + 2)}|"
+
+  puts horizontal_line
+  puts spacer_line
+  puts "| #{string} |"
+  puts spacer_line
+  puts horizontal_line
 end
 
 print_in_box('To boldly go where no one has gone before.')
