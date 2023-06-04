@@ -33,35 +33,29 @@ def slice_string(string)
   sliced_strings
 end
 
-# def slice_string(string)
-#   sliced_strings = []
-#   start_range = 0
-#   end_range = 75
+# MAYBE: try only slicing strings on line 1 if string.length > 76? 
+  # then will also change line_padding logic
+  # then try just doing the same kind of puts as in print_in_box method
 
-#   until end_range >= string.length + 74
-#     sliced_strings << string.slice(start_range..end_range)
-#     start_range += 75
-#     end_range += 75
-#     # currently only iterating 3 times; need different condition to catch the last split - there should be 4
-#     # also: don't want to include empty spaces in last split
-#   end
-#   sliced_strings
-# end
-
-def print_with_word_wrap(string)
-  string_slices = slice_string(string)
-  horizontal_line = "+#{'-' * (78)}+"
-  empty_line = "|#{' ' * (78)}|"
+  def print_with_word_wrap(string)
+    string_slices = slice_string(string)
+    line_padding = string.length > 76 ? 78 : (string.length + 2)
   
-  puts horizontal_line
-  puts empty_line
-  string_slices.each do |str|
-    puts "| #{str.ljust(76)} |"
+    horizontal_line = "+#{'-' * line_padding}+"
+    empty_line = "|#{' ' * line_padding}|"
+    
+    puts horizontal_line
+    puts empty_line
+    string_slices.each do |str|
+      if string.length > 76
+        puts "| #{str.ljust(76)} |"
+      else
+        puts "| #{str} |"
+      end
+    end
+    puts empty_line
+    puts horizontal_line
   end
-  puts empty_line
-  puts horizontal_line
-end
-
 
 # print_in_box('To boldly go where no one has gone before.')
 # print_in_box('')
@@ -74,3 +68,4 @@ print_with_word_wrap(long_string)
 print_with_word_wrap("")
 print_with_word_wrap("Tiny string.")
 print_with_word_wrap(("*" * 160))
+print_with_word_wrap(("z" * 77))
