@@ -6,10 +6,6 @@ MONTHS_IN_YEAR = 12
 ONE_HUNDRED = 100
 ONE = 1
 
-def prompt(key)
-  puts "=> #{MESSAGES[key]}"
-end
-
 def spacer
   puts MESSAGES['empty_line']
 end
@@ -18,27 +14,38 @@ def divider
   puts MESSAGES['divider']
 end
 
+def message(key)
+  MESSAGES[key]
+end
+
+def print_prompt(key)
+  puts "=> #{message(key)}"
+end
+
 def print_message_no_prompt(key)
-  puts MESSAGES[key]
+  puts message(key)
 end
 
 def print_monthly_payment(monthly_payment)
-  puts format(return_message('monthly_pmt'),
+  puts format(message('monthly_pmt'),
               payment: format('%.2f', monthly_payment))
 end
 
 def print_monthly_interest_rate(rate)
-  puts format(return_message('monthly_int'),
+  puts format(message('monthly_int'),
               interest: format('%.2f', rate)) + "%"
 end
 
 def print_loan_term_in_months(months)
-  puts format(return_message('loan_term_months'),
+  puts format(message('loan_term_months'),
               months: months)
 end
 
-def return_message(key)
-  MESSAGES[key]
+def print_loan_summary(amount, interest, term)
+  puts <<~SUMMARY
+  => Based on a loan amount of $#{amount} at #{interest}% APR, 
+     paid over #{term} years:
+  SUMMARY
 end
 
 def greater_than_zero?(string)
@@ -79,7 +86,7 @@ def valid_duration?(string)
 end
 
 def get_amount
-  prompt('enter_loan')
+  print_prompt('enter_loan')
 
   loop do
     amount = gets.chomp
@@ -87,12 +94,12 @@ def get_amount
     return amount if valid_dollar_amount?(amount)
 
     spacer
-    prompt('invalid_amount')
+    print_prompt('invalid_amount')
   end
 end
 
 def get_annual_percentage_rate
-  prompt('enter_apr')
+  print_prompt('enter_apr')
 
   loop do
     annual_percentage_rate = gets.chomp
@@ -102,12 +109,12 @@ def get_annual_percentage_rate
     end
 
     spacer
-    prompt('invalid_apr')
+    print_prompt('invalid_apr')
   end
 end
 
 def get_loan_term
-  prompt('enter_term')
+  print_prompt('enter_term')
 
   loop do
     term_in_years = gets.chomp
@@ -115,32 +122,25 @@ def get_loan_term
     return term_in_years if valid_duration?(term_in_years)
 
     spacer
-    prompt('invalid_term')
+    print_prompt('invalid_term')
   end
 end
 
-def loan_summary(amount, interest, term)
-  puts <<~SUMMARY
-  => Based on a loan amount of $#{amount} at #{interest}% APR, 
-     paid over #{term} years:
-  SUMMARY
-end
-
-def calculate_monthly_payment(annual_int_rate, 
-                              monthly_int_rate, 
-                              loan_amount, 
+def calculate_monthly_payment(annual_int_rate,
+                              monthly_int_rate,
+                              loan_amount,
                               term_in_months)
   if annual_int_rate.zero?
     loan_amount.to_f / term_in_months
   else
     loan_amount.to_f *
-    (monthly_int_rate /
-    (ONE - (ONE + monthly_int_rate)**(-term_in_months)))
+      (monthly_int_rate /
+      (ONE - (ONE + monthly_int_rate)**(-term_in_months)))
   end
 end
 
 def calculate_again?
-  prompt('calculate_again')
+  print_prompt('calculate_again')
   answer = gets.chomp.downcase
 
   answer == 'y'
@@ -163,7 +163,7 @@ loop do
   term_in_years = get_loan_term
   spacer
 
-  prompt('calculating')
+  print_prompt('calculating')
 
   sleep(ONE)
 
@@ -172,13 +172,13 @@ loop do
   monthly_interest_rate = annual_interest_rate / MONTHS_IN_YEAR
   monthly_percentage_rate = monthly_interest_rate * ONE_HUNDRED
 
-  monthly_payment = calculate_monthly_payment(annual_interest_rate,       
-                                              monthly_interest_rate, loan_amount, 
+  monthly_payment = calculate_monthly_payment(annual_interest_rate,     
+                                              monthly_interest_rate, loan_amount,
                                               term_in_months)
 
   spacer
 
-  loan_summary(loan_amount, annual_percentage_rate, term_in_years)
+  print_loan_summary(loan_amount, annual_percentage_rate, term_in_years)
 
   spacer
   divider
@@ -200,4 +200,4 @@ loop do
 end
 
 spacer
-prompt('goodbye')
+print_prompt('goodbye')
