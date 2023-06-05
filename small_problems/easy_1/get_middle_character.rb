@@ -1,16 +1,11 @@
-require 'pry'
 def center_of(string)
-  length = string.length
+  center_index = string.length / 2
   if string.empty?
     return
-  elsif length.odd?
-    middle_index = length / 2
-    string[middle_index]
+  elsif string.length.odd?
+    string[center_index]
   else
-    middle_indexes = (((length / 2) - 1)..(length / 2))
-    # From solution, can also use str[start, length]
-    # string[center_index - 1, 2]
-    string[middle_indexes]
+    string[center_index - 1, 2]
   end
 end
 
