@@ -122,50 +122,49 @@ spacer
 start_game?
 system('clear')
 
+loop do
 number_of_rounds = 1
 player_score = 0
 computer_score = 0
-loop do
-  print_formatted_message('round_number', number: number_of_rounds)
-  spacer
-
-  choice = get_choice
-  computer = VALID_CHOICES.sample
-
-  spacer
-  print_formatted_message('display_choices',
-                          player_choice: choice.capitalize,
-                          computer_choice: computer.capitalize)
-
-  player_score = set_score(choice, computer, player_score)
-  computer_score = set_score(computer, choice, computer_score)
-
-  print_results(choice, computer)
-  spacer
-  print_formatted_message('score',
-                          player_points: player_score,
-                          computer_points: computer_score)
-  spacer
-
-  number_of_rounds += 1
-
-  if game_won?(player_score, computer_score)
-    prompt('game_over')
-    spacer
-    divider
-
-    print_grand_winner(player_score, computer_score)
-    divider
+  loop do
+    print_formatted_message('round_number', number: number_of_rounds)
     spacer
 
-    number_of_rounds = 1
+    choice = get_choice
+    computer = VALID_CHOICES.sample
 
-    break unless play_again?
+    spacer
+    print_formatted_message('display_choices',
+                            player_choice: choice.capitalize,
+                            computer_choice: computer.capitalize)
+
+    player_score = set_score(choice, computer, player_score)
+    computer_score = set_score(computer, choice, computer_score)
+
+    print_results(choice, computer)
+    spacer
+    print_formatted_message('score',
+                            player_points: player_score,
+                            computer_points: computer_score)
+    spacer
+
+    number_of_rounds += 1
+
+    break if game_won?(player_score, computer_score)
+
+    start_next_round?(number_of_rounds)
     system('clear')
-    next
   end
 
-  start_next_round?(number_of_rounds)
+  prompt('game_over')
+  spacer
+  divider
+
+  print_grand_winner(player_score, computer_score)
+  divider
+  spacer
+
+  break unless play_again?
   system('clear')
 end
 
