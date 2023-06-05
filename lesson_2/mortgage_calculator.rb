@@ -2,6 +2,9 @@ require 'pry'
 require 'yaml'
 
 MESSAGES = YAML.load_file('mortgage_messages.yml')
+MONTHS_IN_YEAR = 12
+ONE_HUNDRED = 100
+ONE = 1
 
 def prompt(key)
   puts "=> #{MESSAGES[key]}"
@@ -149,19 +152,19 @@ loop do
 
   prompt('calculating')
 
-  sleep(1)
+  sleep(ONE)
 
-  term_in_months = (term_in_years.to_f * 12).round
-  annual_interest_rate = annual_percentage_rate.to_f / 100
-  monthly_interest_rate = annual_interest_rate / 12
-  monthly_percentage_rate = monthly_interest_rate * 100
+  term_in_months = (term_in_years.to_f * MONTHS_IN_YEAR).round
+  annual_interest_rate = annual_percentage_rate.to_f / ONE_HUNDRED
+  monthly_interest_rate = annual_interest_rate / MONTHS_IN_YEAR
+  monthly_percentage_rate = monthly_interest_rate * ONE_HUNDRED
 
   if annual_interest_rate.zero?
     monthly_payment = loan_amount.to_f / term_in_months
   else
     monthly_payment = loan_amount.to_f *
                       (monthly_interest_rate /
-                      (1 - (1 + monthly_interest_rate)**(-term_in_months)))
+                      (ONE - (ONE + monthly_interest_rate)**(-term_in_months)))
   end
 
   spacer
