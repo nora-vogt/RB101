@@ -126,6 +126,19 @@ def loan_summary(amount, interest, term)
   SUMMARY
 end
 
+def calculate_monthly_payment(annual_int_rate, 
+                              monthly_int_rate, 
+                              loan_amount, 
+                              term_in_months)
+  if annual_int_rate.zero?
+    loan_amount.to_f / term_in_months
+  else
+    loan_amount.to_f *
+    (monthly_int_rate /
+    (ONE - (ONE + monthly_int_rate)**(-term_in_months)))
+  end
+end
+
 def calculate_again?
   prompt('calculate_again')
   answer = gets.chomp.downcase
@@ -159,13 +172,9 @@ loop do
   monthly_interest_rate = annual_interest_rate / MONTHS_IN_YEAR
   monthly_percentage_rate = monthly_interest_rate * ONE_HUNDRED
 
-  if annual_interest_rate.zero?
-    monthly_payment = loan_amount.to_f / term_in_months
-  else
-    monthly_payment = loan_amount.to_f *
-                      (monthly_interest_rate /
-                      (ONE - (ONE + monthly_interest_rate)**(-term_in_months)))
-  end
+  monthly_payment = calculate_monthly_payment(annual_interest_rate,       
+                                              monthly_interest_rate, loan_amount, 
+                                              term_in_months)
 
   spacer
 
