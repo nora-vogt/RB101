@@ -9,6 +9,7 @@ WIN_COMBINATIONS = { 'rock' => ['scissors', 'lizard'],
                      'scissors' => ['paper', 'lizard'],
                      'lizard' => ['spock', 'paper'],
                      'spock' => ['scissors', 'rock'] }
+WINNING_SCORE = 3
 
 def message(key)
   MESSAGES[key]
@@ -93,13 +94,13 @@ def set_score(first_player, second_player, score)
 end
 
 def game_won?(player_score, computer_score)
-  player_score == 3 || computer_score == 3
+  player_score == WINNING_SCORE || computer_score == WINNING_SCORE
 end
 
 def print_grand_winner(player_score, computer_score)
-  if player_score == 3
+  if player_score == WINNING_SCORE
     prompt('player_grand_winner')
-  elsif computer_score == 3
+  elsif computer_score == WINNING_SCORE
     prompt('computer_grand_winner')
   end
 end
@@ -126,6 +127,7 @@ loop do
 number_of_rounds = 1
 player_score = 0
 computer_score = 0
+
   loop do
     print_formatted_message('round_number', number: number_of_rounds)
     spacer
