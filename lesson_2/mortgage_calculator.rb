@@ -19,6 +19,21 @@ def print_message_no_prompt(key)
   puts MESSAGES[key]
 end
 
+def print_monthly_payment(monthly_payment)
+  puts format(return_message('monthly_pmt'),
+              payment: format('%.2f', monthly_payment))
+end
+
+def print_monthly_interest_rate(rate)
+  puts format(return_message('monthly_int'),
+              interest: format('%.2f', rate)) + "%"
+end
+
+def print_loan_term_in_months(months)
+  puts format(return_message('loan_term_months'),
+              months: months)
+end
+
 def return_message(key)
   MESSAGES[key]
 end
@@ -156,16 +171,11 @@ loop do
   spacer
   divider
 
-  # Interpolating data into YAML file messages:
-  # format(return_message(key), var_from_yml: data_to_interpolate)
-  puts format(return_message('monthly_pmt'),
-              payment: format('%.2f', monthly_payment))
+  print_monthly_payment(monthly_payment)
 
-  puts format(return_message('monthly_int'),
-              interest: format('%.2f', monthly_percentage_rate)) + "%"
+  print_monthly_interest_rate(monthly_percentage_rate)
 
-  puts format(return_message('loan_term_months'),
-              months: term_in_months)
+  print_loan_term_in_months(term_in_months)
 
   divider
   spacer
