@@ -35,6 +35,22 @@ def print_formatted_message(key, data_to_interpolate = {})
   puts "=> #{format_message(key, data_to_interpolate)}"
 end
 
+def print_rounds(number)
+  print_formatted_message('round_number', number: number)
+end
+
+def print_choices(player, computer)
+  print_formatted_message('display_choices',
+                            player_choice: player.capitalize,
+                            computer_choice: computer.capitalize)
+end
+
+def print_score(player, computer)
+  print_formatted_message('score',
+                            player_points: player,
+                            computer_points: computer)
+end
+
 def print_results(player, computer)
   if win_round?(player, computer)
     prompt('player_won')
@@ -129,25 +145,22 @@ player_score = 0
 computer_score = 0
 
   loop do
-    print_formatted_message('round_number', number: number_of_rounds)
+    print_rounds(number_of_rounds)
     spacer
 
     choice = get_choice
     computer = VALID_CHOICES.sample
 
     spacer
-    print_formatted_message('display_choices',
-                            player_choice: choice.capitalize,
-                            computer_choice: computer.capitalize)
+    print_choices(choice, computer)
 
     player_score = set_score(choice, computer, player_score)
     computer_score = set_score(computer, choice, computer_score)
 
     print_results(choice, computer)
     spacer
-    print_formatted_message('score',
-                            player_points: player_score,
-                            computer_points: computer_score)
+
+    print_score(player_score, computer_score)
     spacer
 
     number_of_rounds += 1
