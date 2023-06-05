@@ -24,10 +24,9 @@ enter_apr: |
 invalid_apr: "Invalid APR. Enter a positive number without a % sign:"
 enter_term: |
   Please enter your loan term in years.
-  (Example: 10 for 10 years, 5.5 for 5 years, 6 months)
+  (Example: 10 for 10 years, 0.5 for 6 months)
 invalid_term: |
-  Invalid loan term. Loan term must be a positive number,
-    at least 1 year.
+  Invalid loan term. Loan term must be a positive number greater than zero.
 calculating: "Calculating your monthly payment..."
 monthly_pmt: "Your monthly payment is $%{payment}."
 monthly_int: "Your monthly interest rate is %{interest}"

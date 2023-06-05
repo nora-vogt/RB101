@@ -1,3 +1,4 @@
+require 'pry'
 require 'yaml'
 
 MESSAGES = YAML.load_file('mortgage_messages.yml')
@@ -128,7 +129,7 @@ loop do
 
   sleep(1)
 
-  term_in_months = term_in_years.to_f * 12
+  term_in_months = (term_in_years.to_f * 12).round
   annual_interest_rate = annual_percentage_rate.to_f / 100
   monthly_interest_rate = annual_interest_rate / 12
   monthly_percentage_rate = monthly_interest_rate * 100
@@ -155,7 +156,7 @@ loop do
 
   puts format(return_message('monthly_int'),
               interest: format('%.2f', monthly_percentage_rate)) + "%"
-
+  binding.pry
   puts format(return_message('loan_term_months'),
               months: term_in_months)
 
