@@ -28,8 +28,8 @@ enter_term: |
 invalid_term: |
   Invalid loan term. Loan term must be a positive number greater than zero.
 calculating: "Calculating your monthly payment..."
-monthly_pmt: "Your monthly payment is $%{payment}."
-monthly_int: "Your monthly interest rate is %{interest}."
-loan_term_months: "Your loan term is %{months} months."
+monthly_pmt: "Your monthly payment is $%{payment}"
+monthly_int: "Your monthly interest rate is %{interest}"
+loan_term_months: "Your loan term is %{months} months"
 calculate_again: "Would you like to calculate another loan? (Y to calculate again):"
 goodbye: "Thank you for using Mortgage Calculator. Goodbye!"
