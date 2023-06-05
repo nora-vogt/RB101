@@ -27,12 +27,54 @@ def format_message(key, data_to_interpolate = {})
   format(message(key), data_to_interpolate)
 end
 
+def prompt(key)
+  puts("=> #{message(key)}")
+end
+
 def print_formatted_message(key, data_to_interpolate = {})
   puts "=> #{format_message(key, data_to_interpolate)}"
 end
 
-def prompt(key)
-  puts("=> #{message(key)}")
+def print_results(player, computer)
+  if win_round?(player, computer)
+    prompt('player_won')
+  elsif win_round?(computer, player)
+    prompt('computer_won')
+  else
+    prompt('tie')
+  end
+end
+
+def print_grand_winner(player_score, computer_score)
+  if player_score == WINNING_SCORE
+    prompt('player_grand_winner')
+  elsif computer_score == WINNING_SCORE
+    prompt('computer_grand_winner')
+  end
+end
+
+def get_choice
+  loop do
+    prompt('make_choice')
+    choice = gets.chomp.downcase
+
+    if VALID_CHOICES.include?(choice)
+      return choice
+    elsif VALID_ABBREVIATIONS.include?(choice)
+      return VALID_CHOICES.select { |str| str.start_with?(choice) }.join
+    else
+      spacer
+      prompt('invalid_choice')
+    end
+  end
+end
+
+def set_score(first_player, second_player, score)
+  if win_round?(first_player, second_player)
+    score + 1
+  else
+    score
+  end
 end
 
 def start_game?
@@ -55,54 +97,12 @@ def start_next_round?(round_number)
   end
 end
 
-def get_choice
-  loop do
-    prompt('make_choice')
-    choice = gets.chomp.downcase
-
-    if VALID_CHOICES.include?(choice)
-      return choice
-    elsif VALID_ABBREVIATIONS.include?(choice)
-      return VALID_CHOICES.select { |str| str.start_with?(choice) }.join
-    else
-      spacer
-      prompt('invalid_choice')
-    end
-  end
-end
-
 def win_round?(first_player, second_player)
   WIN_COMBINATIONS[first_player].include?(second_player)
 end
 
-def print_results(player, computer)
-  if win_round?(player, computer)
-    prompt('player_won')
-  elsif win_round?(computer, player)
-    prompt('computer_won')
-  else
-    prompt('tie')
-  end
-end
-
-def set_score(first_player, second_player, score)
-  if win_round?(first_player, second_player)
-    score + 1
-  else
-    score
-  end
-end
-
 def game_won?(player_score, computer_score)
   player_score == WINNING_SCORE || computer_score == WINNING_SCORE
-end
-
-def print_grand_winner(player_score, computer_score)
-  if player_score == WINNING_SCORE
-    prompt('player_grand_winner')
-  elsif computer_score == WINNING_SCORE
-    prompt('computer_grand_winner')
-  end
 end
 
 def play_again?
