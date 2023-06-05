@@ -108,6 +108,13 @@ def loan_summary(amount, interest, term)
   SUMMARY
 end
 
+def calculate_again?
+  prompt('calculate_again')
+  answer = gets.chomp.downcase
+
+  answer == 'y'
+end
+
 system("clear")
 
 divider
@@ -156,17 +163,14 @@ loop do
 
   puts format(return_message('monthly_int'),
               interest: format('%.2f', monthly_percentage_rate)) + "%"
-  binding.pry
+
   puts format(return_message('loan_term_months'),
               months: term_in_months)
 
   divider
   spacer
 
-  prompt('calculate_again')
-  answer = gets.chomp.downcase
-
-  if answer == 'y'
+  if calculate_again?
     system("clear")
   else
     break
