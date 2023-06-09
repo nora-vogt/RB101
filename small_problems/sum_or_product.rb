@@ -29,15 +29,11 @@ def get_choice
 end
 
 def calculate_sum(number)
-  sum = 0
-  (1..number).each { |n| sum += n }
-  sum
+  (1..number).inject(:+)
 end
 
 def calculate_product(number)
-  product = 1
-  (1..number).each { |n| product *= n }
-  product
+  (1..number).inject(:*)
 end
 
 loop do
