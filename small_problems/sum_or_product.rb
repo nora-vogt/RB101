@@ -26,7 +26,6 @@ def get_choice
 
     puts "Invalid choice. Enter 's' for sum or 'p' for product:"
   end
-
 end
 
 def calculate_sum(number)
@@ -52,4 +51,10 @@ loop do
     product = calculate_product(number)
     puts "The product of integers between 1 and #{number} is #{product}."
   end
+
+  puts ">> Would you like to make another calculation? ('Y' to continue)"
+  answer = gets.chomp.downcase
+  break unless answer == 'y'
 end
+
+puts ">> Goodbye! Thanks for using the calculator."
