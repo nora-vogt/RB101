@@ -1,6 +1,10 @@
+def palindrome?(string)
+  string == string.reverse
+end
+
 def real_palindrome?(string)
-  test_string = string.downcase.gsub(/\W/, '')
-  test_string == test_string.reverse
+  string = string.downcase.gsub(/\W/, '')
+  palindrome?(string)
 end
 
 
